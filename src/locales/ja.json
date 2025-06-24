@@ -1,0 +1,13 @@
+{
+  "title": "EKICHO - 東京駅情報ガイド",
+  "subtitle": "各駅周辺の雰囲気を発見",
+  "pros": "メリット",
+  "cons": "デメリット",
+  "exits": "駅出口",
+  "rentPrices": "平均家賃",
+  "livingSnapshots": "生活スナップショット",
+  "lastUpdated": "最終更新日: {{date}}",
+  "prosCons": "メリット・デメリット",
+  "search": "駅を検索...",
+  "featured": "おすすめ駅"
+}

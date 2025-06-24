@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --ekicho-primary: #FF4E4E;
+  --ekicho-accent: #FF9F1C;
+}
+
+@layer base {
+  body {
+    @apply antialiased;
+  }
+}
+
+@layer components {
+  .gradient-text {
+    @apply bg-gradient-to-r from-ekicho-primary to-ekicho-accent bg-clip-text text-transparent;
+  }
+  
+  .tilt-on-hover {
+    @apply transform transition-transform duration-300;
+    &:hover {
+      @apply rotate-3;
+    }
+  }
+  
+  .card {
+    @apply bg-white rounded-2xl shadow-xl p-6 hover:shadow-2xl transition-all duration-300;
+  }
+}
