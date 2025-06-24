@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation'
-import { StationPage } from '@/components/StationPage'
+import StationPage from '@/components/StationPage';
 import { stations } from '@/lib/stations'
 
 interface StationPageProps {
