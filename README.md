@@ -59,11 +59,34 @@ src/
     ja.json / en.json     # 表示文言
   i18n/
     request.ts            # next-intl の設定（既定=日本語）
+  app/manifest.ts     Web アプリマニフェスト（タブレットのホーム画面用）
 public/
   images/                 # 駅の写真を置く場所
+  icons/                  # アプリアイコン（生成物）
+scripts/
+  generate-icons.py       # アイコン生成（標準ライブラリのみ・依存なし）
 setup/                    # 新PCセットアップ・2台運用のキット
 legacy/                   # 使っていない旧ポートフォリオ雛形（下記参照）
 ```
+
+## タブレット対応（PWA）
+
+`src/app/manifest.ts` を持っているため、タブレットで「ホーム画面に追加」すると
+アドレスバーのない全画面のアプリとして起動します。アイコンは iPad（apple-touch-icon）と
+Android（maskable 含む）の両方に対応したものを `public/icons/` に同梱済みです。
+
+配色や形を変えたい場合:
+
+```bash
+python3 scripts/generate-icons.py
+```
+
+外部ライブラリを使っていないので、どちらのPCでもそのまま実行できます。
+
+## CI
+
+`.github/workflows/ci.yml` で、push のたびに型チェック・Lint・ビルドが走ります。
+2台のPCから交互に push する運用のため、**壊れた状態がもう片方のPCに渡る前に検知する**のが目的です。
 
 ## 多言語の切り替え
 

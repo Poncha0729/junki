@@ -1,0 +1,34 @@
+# 2台のPCから交互に push するため、壊れた状態が相手のPCに渡る前に検知する。
+name: CI
+
+on:
+  push:
+    branches: ['**']
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  verify:
+    name: 型チェック・Lint・ビルド
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      # package-lock.json どおりに厳密に入れる（ローカルと同じ依存関係になる）
+      - name: 依存関係のインストール
+        run: npm ci
+
+      - name: 型チェック
+        run: npm run typecheck
+
+      - name: Lint
+        run: npm run lint
+
+      - name: ビルド
+        run: npm run build

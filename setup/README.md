@@ -193,3 +193,5 @@ Vercel への公開とタブレットのホーム画面登録まで。
 | [cleanup/CLEANUP.md](cleanup/CLEANUP.md) | 不要ソフト整理の手順 |
 | [cleanup/cleanup-windows.ps1](cleanup/cleanup-windows.ps1) | 導入済みソフトの棚卸し（既定=表示のみ） |
 | [dotfiles/](dotfiles/) | VS Code 設定・拡張機能・git 設定 |
+| [`../CLAUDE.md`](../CLAUDE.md) | Claude Code がこのリポジトリで守る前提（2台で共有） |
+| [`../.github/workflows/ci.yml`](../.github/workflows/ci.yml) | push のたびに型チェック・Lint・ビルドを自動実行 |
