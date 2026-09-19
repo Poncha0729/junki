@@ -26,20 +26,57 @@
 
 ### ディスクの暗号化
 
-```
-設定 → プライバシーとセキュリティ → デバイスの暗号化
-```
-
-これが見当たらない場合は Windows 11 Pro の BitLocker を使います。
+この機体は **Windows 11 Pro** なので BitLocker を使います。
 
 ```
-コントロールパネル → システムとセキュリティ → BitLocker ドライブ暗号化
-→ C: で「BitLocker を有効にする」
+Win + R → control /name Microsoft.BitLockerDriveEncryption
+→ C: の「BitLocker を有効にする」
 ```
 
-> **回復キーは必ず Microsoft アカウントに保存**してください。
-> これを失くすと、自分でも二度と中身を取り出せなくなります。
-> 紙に印刷してPCと別の場所に置いておくとより安全です。
+ウィザードの設定は次で問題ありません。
+
+| 項目 | 選ぶもの | 理由 |
+|---|---|---|
+| 暗号化する範囲 | **使用済み領域のみ** | 新品同様なら十分。速い |
+| 暗号化モード | **新しい暗号化モード** | この機体から動かさないため |
+| システムチェック | **実行する** | 起動不能になる事故を事前に検出できる |
+
+#### 回復キーの保存先 ── ここが一番重要
+
+**ローカルアカウントで Windows にサインインしている場合、「Microsoft アカウントに保存」は選べません。**
+選ぶと「Microsoft アカウントにサインインできません」というエラーになります。
+この機体はローカルアカウント運用なので、自分で保管します。
+
+| 方法 | 備考 |
+|---|---|
+| **USBメモリに保存** | 暗号化するCドライブには保存できない仕様。USBが要ります |
+| **印刷して紙で保管** | PCとは別の場所に置く。プリンタが無ければ PDF をUSB側へ |
+| **パスワードマネージャーに控える** | 実運用ではこれが一番失くしにくい |
+
+**最低2つでやってください。** USBメモリ1本だけに頼るのは危険です。
+
+有効化したあとは、ドライブがロックされていない間いつでも取り出せます。
+
+```powershell
+(Get-BitLockerVolume -MountPoint 'C:').KeyProtector |
+  Where-Object KeyProtectorType -eq 'RecoveryPassword' |
+  Select-Object KeyProtectorId, RecoveryPassword
+```
+
+> **回復キーを失うと、ご自身でも二度と中身を取り出せません。**
+> Microsoft アカウントに預ける場合と違い、ローカルアカウント運用では
+> **管理責任が完全に自分にあります。**
+
+#### 状態の確認
+
+```powershell
+Get-BitLockerVolume -MountPoint 'C:' |
+  Select-Object VolumeStatus, ProtectionStatus, EncryptionPercentage
+```
+
+`ProtectionStatus` が `On` になっていれば有効です。
+`EncryptionPercentage` は暗号化の進捗で、100 になるまでは裏で処理が続きます
+（**待たずに次の作業に進んで構いません**）。
 
 ### Windows Hello と自動ロック
 

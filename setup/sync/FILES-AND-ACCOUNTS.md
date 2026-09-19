@@ -54,6 +54,12 @@ C:\Users\<あなた>\
 
 Windows に最初から入っています。Microsoft アカウントでログインすれば使えます。
 
+> **Windows のサインインがローカルアカウントでも使えます。**
+> OneDrive アプリ側に Microsoft アカウントでサインインすれば同期は動きます。
+> Windows のサインイン方法を変える必要はありません。
+> （BitLocker の回復キーだけは Microsoft アカウントに預けられないため、
+>   自分で保管します → [../new-pc/THINKPAD-X1-YOGA.md](../new-pc/THINKPAD-X1-YOGA.md)）
+
 ### 容量
 
 無料枠は 5GB です。物件資料のPDFや内見写真が増えると足りなくなることがあります。

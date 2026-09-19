@@ -67,6 +67,22 @@
    `VS Code → 左下の歯車 → Backup and Sync Settings → GitHub でサインイン`
 4. Chrome が Google アカウントでログイン済みか確認する
 
+### STEP 0.5 ── 新PC の現状を確認する
+
+すでに新PCを使い始めている場合、どこまで済んでいるか分からないことがあります。
+先に診断してから必要な作業だけやる方が速いです。
+
+```powershell
+# 読み取りのみ。何も変更しません
+.\setup\new-pc\diagnose-windows.ps1
+```
+
+リポジトリをまだクローンしていない場合は、
+[new-pc/diagnose-windows.ps1](new-pc/diagnose-windows.ps1) の中身を
+PowerShell にそのまま貼り付けても動きます。
+
+機種・OS・ディスク暗号化の状態・導入済みツールが一覧で出ます。
+
 ### STEP 1 ── 新PC の初期設定
 
 ここだけは画面操作が必要です。
@@ -192,6 +208,7 @@ OneDrive・Chrome・VS Code Settings Sync・GitHub の**どれが何を運ぶか
 | ファイル | 内容 |
 |---|---|
 | [new-pc/setup-windows.ps1](new-pc/setup-windows.ps1) | **Windows 用 自動セットアップ** |
+| [new-pc/diagnose-windows.ps1](new-pc/diagnose-windows.ps1) | **現状診断**（読み取りのみ。何も変更しません） |
 | [new-pc/verify-windows.ps1](new-pc/verify-windows.ps1) | **Windows 用 セットアップ検証** |
 | [new-pc/THINKPAD-X1-YOGA.md](new-pc/THINKPAD-X1-YOGA.md) | **機種固有の設定**（暗号化・Hello・Vantage・ペン） |
 | [sync/SYNC.md](sync/SYNC.md) | コードの同期（GitHub 運用） |
