@@ -72,7 +72,21 @@ $Protected = @(
     'Microsoft.WindowsNotepad'
     'Microsoft.Windows.Photos'
     'MicrosoftWindows.Client'
+    # --- ThinkPad（Lenovo）でハードウェアを制御しているもの ---
+    # 消すとファンクションキー・ペン・充電しきい値などが効かなくなる
+    'LenovoUtility'        # Fnキー・特殊キー
+    'LenovoSettings'       # Vantage 系の設定
+    'Vantage'              # Lenovo Vantage（BIOS/ドライバ更新の経路）
+    'Hotkey'
+    'Pen'                  # ペン設定（X1 Yoga はペン内蔵）
 )
+
+# ---------------------------------------------------------------------------
+# メーカー独自アプリは機種ごとに違い、ハードウェア制御を兼ねているものがある。
+# 一律に消すと危ないため、削除候補にはせず「要判断」として一覧表示だけする。
+# 判断材料は setup/new-pc/THINKPAD-X1-YOGA.md の表を参照。
+# ---------------------------------------------------------------------------
+$VendorPrefixes = @('Lenovo', 'E046963', 'E0469640', 'Dolby', 'Glance', 'Mirametrix')
 
 function Test-Protected {
     param([string] $Name)
@@ -114,6 +128,27 @@ if ($hits.Count -eq 0) {
         Write-Host ("  {0,2}. {1}" -f $i, $h.Name) -ForegroundColor White
         Write-Host ("      理由: {0}" -f $h.Why) -ForegroundColor DarkGray
     }
+}
+
+# --- メーカー独自アプリ（削除候補にはしない） ---
+$vendor = @()
+foreach ($pkg in $appx) {
+    foreach ($prefix in $VendorPrefixes) {
+        if ($pkg.Name -like "*$prefix*") {
+            $vendor += $pkg.Name
+            break
+        }
+    }
+}
+$vendor = $vendor | Sort-Object -Unique
+
+if ($vendor.Count -gt 0) {
+    Write-Host "`nメーカー独自アプリ $($vendor.Count) 件（削除候補には含めていません）:" -ForegroundColor Cyan
+    foreach ($v in $vendor) {
+        Write-Host ("  - {0}" -f $v) -ForegroundColor White
+    }
+    Write-Host '  ハードウェア制御を兼ねているものがあります。' -ForegroundColor DarkGray
+    Write-Host '  残す/消すの判断は setup\new-pc\THINKPAD-X1-YOGA.md の表を見てください。' -ForegroundColor DarkGray
 }
 
 if ($All) {

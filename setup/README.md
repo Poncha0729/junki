@@ -1,5 +1,7 @@
 # 新PC（Windows）セットアップ / 2台＋タブレット運用キット
 
+**対象機種: ThinkPad X1 Yoga Gen 7（32GB / 1TB）**
+
 新しく買った Windows PC を現在のPCと同じ状態に揃え、
 **現PC（AIメイン）＋新PC＋外出先のタブレット**で運用するための手順書と自動化スクリプトです。
 
@@ -126,6 +128,18 @@ npm run verify   # 型チェック + Lint + ビルド
 npm run dev      # http://localhost:3000
 ```
 
+### STEP 3.5 ── 機種固有の設定（ThinkPad X1 Yoga Gen 7）
+
+→ **[new-pc/THINKPAD-X1-YOGA.md](new-pc/THINKPAD-X1-YOGA.md)**
+
+汎用のセットアップでは触れていない、この機種だから必要な設定です。
+
+- **持ち歩く機体なのでディスクの暗号化は必須**（回復キーの保存を忘れずに）
+- Windows Hello は顔と指紋を**両方**登録する（外では指紋が失敗しやすい）
+- **Lenovo Vantage は消さない**（BIOS・ドライバ更新の唯一の経路）
+- ペンとタッチを物件資料の書き込みに使う
+- 32GB あるので、AI作業を新PC側でやる選択肢もある
+
 ### STEP 4 ── 2台の同期設定
 
 - コードの同期 → **[sync/SYNC.md](sync/SYNC.md)**
@@ -178,6 +192,7 @@ OneDrive・Chrome・VS Code Settings Sync・GitHub の**どれが何を運ぶか
 |---|---|
 | [new-pc/setup-windows.ps1](new-pc/setup-windows.ps1) | **Windows 用 自動セットアップ** |
 | [new-pc/verify-windows.ps1](new-pc/verify-windows.ps1) | **Windows 用 セットアップ検証** |
+| [new-pc/THINKPAD-X1-YOGA.md](new-pc/THINKPAD-X1-YOGA.md) | **機種固有の設定**（暗号化・Hello・Vantage・ペン） |
 | [sync/SYNC.md](sync/SYNC.md) | コードの同期（GitHub 運用） |
 | [sync/FILES-AND-ACCOUNTS.md](sync/FILES-AND-ACCOUNTS.md) | ファイルとアカウントの同期（OneDrive・Chrome ほか） |
 | [tablet/PROPERTY-SEARCH.md](tablet/PROPERTY-SEARCH.md) | **外出先のタブレットで物件を探す** |
