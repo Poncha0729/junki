@@ -148,6 +148,21 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force
 .\setup\new-pc\verify-windows.ps1
 ```
 
+> **「このシステムではスクリプトの実行が無効になっています」と出る場合**
+>
+> `Set-ExecutionPolicy -Scope Process` は**そのウィンドウを閉じるまで**の一時設定です。
+> 再起動や新しいウィンドウでは消えます。毎回打つのが面倒なら、
+> ユーザー単位で一度だけ設定してください。
+>
+> ```powershell
+> Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned -Force
+> ```
+>
+> `RemoteSigned` は Microsoft が開発者向けに推奨している設定です。
+> git clone したようなローカルのスクリプトは実行でき、
+> インターネットからダウンロードしたものは署名が無ければブロックされます。
+> `Bypass`（全部許可）より安全です。
+
 すべて `[OK]` になれば完了です。仕上げに:
 
 ```powershell
