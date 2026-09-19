@@ -47,27 +47,45 @@ npm run dev
 src/
   app/
     layout.tsx            # ルートレイアウト（i18n プロバイダ・グローバルCSS）
-    page.tsx              # ホーム（駅検索・おすすめ駅）
+    page.tsx              # ホーム（駅の検索・一覧）
+    manifest.ts           # Web アプリマニフェスト（タブレットのホーム画面用）
     globals.css           # Tailwind のエントリポイント
     stations/[slug]/      # 駅ごとの詳細ページ
-  components/             # UI コンポーネント
-    StationPage.tsx       #   駅詳細の本体
-    PinballTable.tsx      #   Matter.js のピンボール（おまけ）
+  components/
+    StationPage.tsx       # 駅詳細の本体
+    RentChart.tsx         # 間取り別の家賃比較
+    StationMap.tsx        # 駅周辺の地図（OpenStreetMap 埋め込み）
+    StationImage.tsx      # 写真が無いときに代替表示へ切り替える画像
   lib/
-    stations.ts           # 駅データ（現状はサンプルデータ）
+    stations.ts           # 駅データと検索ロジック
   locales/
     ja.json / en.json     # 表示文言
   i18n/
     request.ts            # next-intl の設定（既定=日本語）
-  app/manifest.ts     Web アプリマニフェスト（タブレットのホーム画面用）
 public/
-  images/                 # 駅の写真を置く場所
+  images/stations/        # 駅の写真を置く場所
   icons/                  # アプリアイコン（生成物）
 scripts/
   generate-icons.py       # アイコン生成（標準ライブラリのみ・依存なし）
+docs/
+  STATION-DATA.md         # 駅データの増やし方
 setup/                    # 新PCセットアップ・2台運用のキット
-legacy/                   # 使っていない旧ポートフォリオ雛形（下記参照）
+legacy/                   # 使っていない旧コード（下記参照）
 ```
+
+## 駅データ
+
+駅の情報は [`src/lib/stations.ts`](src/lib/stations.ts) の1ファイルにまとまっています。
+ここに駅を追加すると、一覧・検索・詳細ページが自動で増えます。
+
+**家賃相場は出典が確認できたものだけを載せる方針**です。未登録の駅は画面上で
+「まだ登録されていません」と表示され、推測値は出しません。
+追加の手順は [`docs/STATION-DATA.md`](docs/STATION-DATA.md) を参照してください。
+
+## 地図
+
+駅周辺の地図は OpenStreetMap の埋め込みを使っています。
+**APIキーもアカウントも不要**なので、新しいPCでもタブレットでも設定なしで表示されます。
 
 ## タブレット対応（PWA）
 
@@ -104,19 +122,24 @@ Vercel に GitHub 連携でインポートすれば、設定はすべて自動�
 
 ## 既知の未対応事項
 
-- **駅データはサンプルです。** `src/lib/stations.ts` の内容は実データではありません。
-- **駅の写真が未配置です。** `src/lib/stations.ts` が参照している
-  `/images/stations/...` のファイルがまだ無いため、写真枠は空で表示されます。
-  `public/images/` に配置すると表示されます。
-- **地図は未実装です。** `src/components/MapShowcase.tsx` は Mapbox を入れる
-  想定の枠だけがあり、初期化処理はコメントのままです。
+- **家賃相場が入っているのは渋谷のみ**で、その値もリポジトリに元から入っていた
+  サンプルです（画面上でもその旨を表示しています）。他の9駅は未登録です。
+  実データへの差し替え手順は [`docs/STATION-DATA.md`](docs/STATION-DATA.md) にあります。
+- **駅の写真が未配置です。** `public/images/stations/<slug>/` に画像を置き、
+  `stations.ts` の `photos` に追記すると表示されます。
+  それまでは壊れた画像ではなく代替表示が出ます。
+- **収録は10駅のみ**です（渋谷・新宿・池袋・東京・品川・上野・恵比寿・中目黒・
+  吉祥寺・三軒茶屋）。
 
 ## `legacy/` について
 
-`legacy/portfolio/` には、以前この repo のルートに置かれていた
-**別プロジェクトのポートフォリオ雛形**（`app/` と `components/`）が入っています。
+ビルドと型チェックの対象外にした、使われていないコードの置き場です。
+削除はしていないので、必要なら戻せます。不要だと判断できたらフォルダごと消して構いません。
 
-Next.js は `app/` と `src/app/` が同時に存在すると `app/` を優先するため、
-この雛形があると EKICHO 側のページが一切表示されない状態でした。
-削除はせず `legacy/` に退避し、ビルドと型チェックの対象から外してあります。
-不要だと判断できたらフォルダごと削除して構いません。
+- `legacy/portfolio/` — 以前ルートに置かれていた**別プロジェクトのポートフォリオ雛形**。
+  Next.js は `app/` と `src/app/` が同時にあると `app/` を優先するため、
+  これがあると EKICHO 側のページが一切表示されない状態でした。
+- `legacy/components/` — どこからも import されていなかったコンポーネント群
+  （Hero, Footer, About, CTASection, UserVoices, FeaturedStations, StationSearch,
+  MapShowcase, PinballTable）。存在しない動画ファイルを参照していたり、
+  `stations.ts` とは無関係な固定データを持っていたりと、いずれも未完成のものです。

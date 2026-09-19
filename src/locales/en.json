@@ -4,10 +4,14 @@
   "pros": "Pros",
   "cons": "Cons",
   "exits": "Station Exits",
-  "rentPrices": "Average Rent Prices",
+  "rentPrices": "Rent Prices",
   "livingSnapshots": "Living Snapshots",
   "lastUpdated": "Last updated: {date}",
   "prosCons": "Pros & Cons",
-  "search": "Search stations...",
-  "featured": "Featured Stations"
+  "search": "Search by station, line, or ward",
+  "featured": "Featured Stations",
+  "backToList": "All stations",
+  "aroundStation": "Around the Station",
+  "resultCount": "Showing {count} of {total} stations",
+  "noResults": "No stations matched your search"
 }
