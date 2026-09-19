@@ -1,16 +1,19 @@
-# 新PC（Windows）セットアップ / 2台＋タブレット運用キット
+# 新PC（Windows）セットアップ / 2台運用キット
 
 **対象機種: ThinkPad X1 Yoga Gen 7（32GB / 1TB）**
 
 新しく買った Windows PC を現在のPCと同じ状態に揃え、
-**現PC（AIメイン）＋新PC＋外出先のタブレット**で運用するための手順書と自動化スクリプトです。
+**現PC（据え置き）＋新PC（持ち出し）の2台**で運用するための手順書と自動化スクリプトです。
+
+新PCは 2-in-1（画面が360度回る）なので、**外出先ではこれをタブレットモードで使います。**
+専用のタブレットは使いません。
 
 ---
 
 ## ⚠️ 最初に読んでください
 
 このキットを作った Claude は、**クラウド上の隔離されたコンテナの中で、この Git リポジトリだけ**を
-見て動いています。**あなたのPC（現行機・新機）やタブレットには一切アクセスできません。**
+見て動いています。**あなたのPC（現行機・新機）には一切アクセスできません。**
 
 そのため、ソフトのインストール・設定のコピー・不要ソフトの削除は、**こちらでは実行できません。**
 代わりに用意したのが、**あなたが新PCで1回コマンドを叩けば同じ状態になる**この自動化キットです。
@@ -21,24 +24,20 @@
 ## 全体構成
 
 ```
-┌──────────────────┐        ┌──────────────────┐
-│  現PC（母艦）      │        │  新PC（Windows）   │
-│  AI 作業メイン     │        │  日常作業・物件検討 │
-│  - Claude          │        │  - Chrome / VS Code│
-│  - 重い生成処理     │        │  - OneDrive        │
-└─────────┬────────┘        └─────────┬────────┘
-          │                            │
-          │  ① コード → GitHub          │
-          │  ② ファイル → OneDrive      │
-          │  ③ ブラウザ → Google 同期    │
-          └────────────┬───────────────┘
-                       │
-                       ▼
-              ┌─────────────────┐
-              │ タブレット（外出先） │
-              │ 物件サイトで検索    │
-              │ Chrome 同期でPCと往復│
-              └─────────────────┘
+┌──────────────────┐            ┌──────────────────┐
+│  現PC（据え置き）   │            │  新PC = X1 Yoga    │
+│  AI 作業・じっくり  │            │  持ち出し・内見先   │
+│  比較検討          │            │  タブレットモード   │
+│  - Claude          │            │  - Chrome / VS Code│
+└─────────┬────────┘            └─────────┬────────┘
+          │                                │
+          │   ① コード      → GitHub        │
+          │   ② ファイル    → OneDrive      │
+          │   ③ ブラウザ    → Google 同期    │
+          └──────────────┬─────────────────┘
+                         │
+                 この3経路だけで
+                 2台がつながる
 ```
 
 **設計の要点**
@@ -47,8 +46,8 @@
    （`node_modules` と `.git` が壊れます → [sync/SYNC.md](sync/SYNC.md)）
 2. **ファイルは OneDrive、ブラウザは Google アカウント。** 役割を分ける
    → [sync/FILES-AND-ACCOUNTS.md](sync/FILES-AND-ACCOUNTS.md)
-3. **外出先のタブレットは Chrome 同期でPCとつながる**
-   → [tablet/PROPERTY-SEARCH.md](tablet/PROPERTY-SEARCH.md)
+3. **外出先も同じPCなので、端末間の同期を増やさなくて済む**
+   → [property/PROPERTY-SEARCH.md](property/PROPERTY-SEARCH.md)
 
 ---
 
@@ -108,7 +107,7 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force
 | 3 | `git config`（名前・メール・改行コード・rebase・日本語ファイル名） |
 | 4 | VS Code 拡張機能の一括インストール |
 | 5 | このプロジェクトの `npm install` |
-| 6 | （任意）タブレットからLAN経由で見るためのポート開放 |
+| 6 | （任意）同一Wi-Fi内の別端末から見るためのポート開放。通常は不要 |
 
 **既に入っているものはスキップします。**何度実行しても壊れません。**何も削除しません。**
 
@@ -147,15 +146,17 @@ npm run dev      # http://localhost:3000
 
 OneDrive・Chrome・VS Code Settings Sync・GitHub の**どれが何を運ぶか**を整理してあります。
 
-### STEP 5 ── タブレットで物件を探せるようにする
+### STEP 5 ── 物件探しの環境をつくる
 
-→ **[tablet/PROPERTY-SEARCH.md](tablet/PROPERTY-SEARCH.md)**
+→ **[property/PROPERTY-SEARCH.md](property/PROPERTY-SEARCH.md)**
 
 要点は3つだけです。
 
 1. 物件サイトで**必ずアカウントを作ってログイン**する（しないとお気に入りが端末内保存）
-2. タブレットとPCで**同じ Chrome アカウント**にする（iPad なら Chrome を入れる）
+2. 現PC と X1 Yoga で**同じ Chrome アカウント**にする
 3. **横断メモを1か所**に決める
+
+外出先では X1 Yoga をタブレットモードにし、ペンで間取り図に書き込めます。
 
 ### STEP 6 ── 不要ソフトの整理
 
@@ -182,7 +183,7 @@ OneDrive・Chrome・VS Code Settings Sync・GitHub の**どれが何を運ぶか
 | 3 | `.env` など秘密情報の移送 | 現PC → 新PC |
 | 4 | 物件サイトのアカウント作成 | ブラウザ |
 | 5 | 不要ソフトの最終的な削除判断 | 新PC |
-| 6 | タブレットへの Chrome 導入とログイン | タブレット |
+| 6 | 現PC の Chrome を同じ Google アカウントにする | 現PC |
 
 ---
 
@@ -195,8 +196,7 @@ OneDrive・Chrome・VS Code Settings Sync・GitHub の**どれが何を運ぶか
 | [new-pc/THINKPAD-X1-YOGA.md](new-pc/THINKPAD-X1-YOGA.md) | **機種固有の設定**（暗号化・Hello・Vantage・ペン） |
 | [sync/SYNC.md](sync/SYNC.md) | コードの同期（GitHub 運用） |
 | [sync/FILES-AND-ACCOUNTS.md](sync/FILES-AND-ACCOUNTS.md) | ファイルとアカウントの同期（OneDrive・Chrome ほか） |
-| [tablet/PROPERTY-SEARCH.md](tablet/PROPERTY-SEARCH.md) | **外出先のタブレットで物件を探す** |
-| [tablet/TABLET.md](tablet/TABLET.md) | （参考）このリポジトリのアプリをタブレットで見る場合 |
+| [property/PROPERTY-SEARCH.md](property/PROPERTY-SEARCH.md) | **物件探しの環境づくり**（Chrome 同期・横断メモ・内見の準備） |
 | [cleanup/CLEANUP.md](cleanup/CLEANUP.md) | 不要ソフト整理の手順 |
 | [cleanup/cleanup-windows.ps1](cleanup/cleanup-windows.ps1) | 導入済みソフトの棚卸し（既定=表示のみ） |
 | [dotfiles/](dotfiles/) | VS Code 拡張機能リスト・git 設定 |

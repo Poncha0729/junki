@@ -17,8 +17,9 @@
     アプリのインストールを飛ばし、設定とプロジェクト準備だけ行います。
 
 .PARAMETER OpenLanPort
-    タブレットから同一Wi-Fi経由で開発サーバを見るため、TCP3000 を開放します。
-    既定は無効。有効にすると確認プロンプトが出ます。
+    同一Wi-Fi内の別の端末から開発サーバを見るため、TCP3000 を開放します。
+    既定は無効。2台とも単独で動かすなら不要です。
+    有効にすると確認プロンプトが出ます。
 
 .EXAMPLE
     Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force
@@ -187,9 +188,9 @@ try {
 }
 
 # ----------------------------------------------------------------------------
-# 6. LAN 公開（タブレット用・任意）
+# 6. LAN 公開（任意・既定では何もしない）
 # ----------------------------------------------------------------------------
-Write-Step '6. LAN 公開（タブレット用・任意）'
+Write-Step '6. LAN 公開（任意）'
 
 if ($OpenLanPort) {
     $ruleName = 'junki dev server (TCP 3000)'
@@ -207,7 +208,7 @@ if ($OpenLanPort) {
         }
     }
 } else {
-    Write-Skip '-OpenLanPort 未指定のため何もしません（外出先からの閲覧は Vercel を使います）'
+    Write-Skip '-OpenLanPort 未指定のため何もしません（2台とも単独で動かすなら不要です）'
 }
 
 # ----------------------------------------------------------------------------
@@ -228,8 +229,9 @@ Write-Host @"
   1. .\setup\new-pc\verify-windows.ps1   で検証
   2. npm run verify                      で型チェック+Lint+ビルド
   3. npm run dev                         で http://localhost:3000
-  4. setup\sync\SYNC.md                  で2台の同期設定
-  5. setup\tablet\TABLET.md              でタブレット閲覧の設定
+  4. setup\new-pc\THINKPAD-X1-YOGA.md    で機種固有の設定（暗号化・Hello・ペン）
+  5. setup\sync\SYNC.md                  で2台の同期設定
+  6. setup\property\PROPERTY-SEARCH.md   で物件探しの環境づくり
 "@ -ForegroundColor Cyan
 
 if ($script:Failures.Count -gt 0) { exit 1 }

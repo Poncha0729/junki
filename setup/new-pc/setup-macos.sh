@@ -234,7 +234,7 @@ cat <<'NEXT'
   2. npm run verify                      で型チェック+Lint+ビルド
   3. npm run dev                         で http://localhost:3000
   4. setup/sync/SYNC.md                  で2台の同期設定
-  5. setup/tablet/TABLET.md              でタブレット閲覧の設定
+  5. setup/property/PROPERTY-SEARCH.md   で物件探しの環境づくり
 NEXT
 
 [ "${#FAILURES[@]}" -eq 0 ] || exit 1

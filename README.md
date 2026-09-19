@@ -1,7 +1,7 @@
 # EKICHO — 東京の駅エリアガイド
 
 駅ごとの雰囲気・家賃相場・出口情報・周辺スポットをまとめて見られる Web アプリです。
-外出先ではタブレットから、自宅では PC から同じ内容を確認できます。
+自宅でも外出先でも、同じ内容をブラウザから確認できます。
 
 - **Next.js 14（App Router）/ TypeScript / Tailwind CSS / React 18**
 - 日本語・英語のバイリンガル対応（`next-intl`）
@@ -12,7 +12,7 @@
 
 **→ [`setup/README.md`](setup/README.md) を最初に読んでください。**
 
-新PCのセットアップ、現PCとの同期、外出先タブレットからの閲覧、
+新PCのセットアップ、現PCとの同期、物件探しの環境づくり、
 不要ソフトの整理までを一通りまとめてあります。
 
 ---
@@ -116,7 +116,6 @@ python3 scripts/generate-icons.py
 
 Vercel に GitHub 連携でインポートすれば、設定はすべて自動検出されます。
 以後は `git push` するだけで公開URLが更新されます。
-手順は [`setup/tablet/TABLET.md`](setup/tablet/TABLET.md) を参照してください。
 
 ---
 

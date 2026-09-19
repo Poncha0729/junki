@@ -1,10 +1,22 @@
+> **このドキュメントは現在使われていません。**
+>
+> 専用のタブレットは使わない構成になったため、`setup/` から `legacy/` へ移しました。
+> 新PC（ThinkPad X1 Yoga Gen 7）は 2-in-1 なので、外出先ではこれ自体を
+> タブレットモードで使います。物件探しの手順は
+> [`setup/property/PROPERTY-SEARCH.md`](../../setup/property/PROPERTY-SEARCH.md) にあります。
+>
+> 将来タブレットを足す場合や、このリポジトリのアプリを別端末から見たくなった場合の
+> 参考として残してあります。
+
+---
+
 # 外出先のタブレットからこのリポジトリのアプリを見る
 
 このページは、**このリポジトリで作っている駅ガイドアプリ（EKICHO）**を
 外出先のタブレットで開けるようにするための手順です。
 
 > **実際の物件探し（SUUMO などの物件サイトをタブレットで使う）は
-> [PROPERTY-SEARCH.md](PROPERTY-SEARCH.md) を参照してください。**
+> [`setup/property/PROPERTY-SEARCH.md`](../../setup/property/PROPERTY-SEARCH.md) を参照してください。**
 > そちらは Chrome 同期でPCと行き来する設定で、このアプリとは無関係に使えます。
 
 ---

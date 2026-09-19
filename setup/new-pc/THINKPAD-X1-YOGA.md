@@ -95,10 +95,11 @@ Lenovo Vantage → デバイス → 電源
 | 方法 | 向いている場面 |
 |---|---|
 | **Microsoft Edge** のPDF表示 → 「描画」 | その場でさっと丸を付ける。追加インストール不要 |
-| **OneNote** に貼って書き込む | 物件ごとにページを分けて残す。PC・タブレット両方から見られる |
+| **OneNote** に貼って書き込む | 物件ごとにページを分けて残す。帰宅後に現PCからも見られる |
 
 OneNote に寄せると、[FILES-AND-ACCOUNTS.md](../sync/FILES-AND-ACCOUNTS.md) の
-OneDrive 同期にそのまま乗ります。
+OneDrive 同期にそのまま乗ります。物件探しの全体の流れは
+[property/PROPERTY-SEARCH.md](../property/PROPERTY-SEARCH.md) にまとめてあります。
 
 ### モードの切り替え
 
