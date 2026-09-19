@@ -72,8 +72,11 @@ Section '開発ツール'
 foreach ($c in 'winget', 'git', 'node', 'npm', 'code', 'pwsh') {
     $cmd = Get-Command $c -ErrorAction SilentlyContinue
     if ($cmd) {
-        $ver = (& $c --version 2>&1 | Select-Object -First 1)
-        Line $c $ver
+        # 先に全出力を受け取ってから1行目を取る。
+        # 直接 `| Select-Object -First 1` につなぐとパイプラインが早期終了し、
+        # 上流のネイティブコマンドが強制終了されて出力が空になることがある。
+        $out = & $c --version 2>&1
+        Line $c (@($out) | Select-Object -First 1)
     } else {
         Line $c '未導入'
     }
