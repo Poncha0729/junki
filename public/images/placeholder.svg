@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" role="img" aria-label="画像未設定">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FFFAF3"/>
+      <stop offset="100%" stop-color="#FFE6E6"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#g)"/>
+  <text x="600" y="400" text-anchor="middle" font-family="sans-serif" font-size="40" fill="#FF4E4E">画像未設定</text>
+</svg>

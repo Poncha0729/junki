@@ -1,3 +1,5 @@
+'use client'
+
 import { useState } from 'react'
 import { Station } from '@/lib/stations'
 import { useTranslations } from 'next-intl'

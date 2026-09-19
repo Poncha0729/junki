@@ -1,4 +1,7 @@
+'use client'
+
 import { motion } from 'framer-motion'
+import Image from 'next/image'
 
 interface Testimonial {
   id: string

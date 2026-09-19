@@ -6,7 +6,7 @@
   "exits": "Station Exits",
   "rentPrices": "Average Rent Prices",
   "livingSnapshots": "Living Snapshots",
-  "lastUpdated": "Last updated: {{date}}",
+  "lastUpdated": "Last updated: {date}",
   "prosCons": "Pros & Cons",
   "search": "Search stations...",
   "featured": "Featured Stations"
