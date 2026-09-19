@@ -12,15 +12,40 @@
 param()
 
 $ErrorActionPreference = 'Continue'
+
+# git や winget の出力は UTF-8 だが、コンソール既定は日本語環境だと Shift-JIS。
+# 揃えておかないと日本語のコミットメッセージなどが文字化けする。
+try { [Console]::OutputEncoding = [System.Text.Encoding]::UTF8 } catch { }
 $pass = 0
 $failed = 0
 
 function Test-Item {
     param([string] $Label, [scriptblock] $Check)
+
+    # $LASTEXITCODE は「直前に動いたネイティブコマンド」の終了コードが
+    # セッションに残り続ける。各チェックの前に 0 へ戻しておかないと、
+    # 一度失敗した以降は、ネイティブコマンドを使わないチェック
+    # （node_modules の有無など）まで道連れで失敗する。
+    $global:LASTEXITCODE = 0
+
     try {
-        $result = & $Check 2>&1 | Select-Object -First 1
-        if ($LASTEXITCODE -and $LASTEXITCODE -ne 0) { throw "exit $LASTEXITCODE" }
+        # 先に全出力を受け取ってから1行目を取り出す。
+        # `& $Check | Select-Object -First 1` と直接つなぐとパイプラインが
+        # 早期終了し、上流のネイティブコマンドが強制終了されて
+        # $LASTEXITCODE が負の値になることがある（成功していても失敗に見える）。
+        $out = & $Check 2>&1
+
+        if ($LASTEXITCODE -ne 0) { throw "exit $LASTEXITCODE" }
+
+        $result = @($out) | Select-Object -First 1
+
+        # 2>&1 でエラーが出力に混ざるため、エラーレコードは失敗として扱う
+        # （そうしないと「コマンドが見つかりません」を [OK] と表示してしまう）
+        if ($result -is [System.Management.Automation.ErrorRecord]) {
+            throw $result.Exception.Message
+        }
         if (-not $result) { throw '値が空です' }
+
         Write-Host ("  [OK]   {0,-26} {1}" -f $Label, $result) -ForegroundColor Green
         $script:pass++
     } catch {

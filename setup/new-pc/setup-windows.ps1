@@ -34,6 +34,10 @@ param(
 )
 
 $ErrorActionPreference = 'Stop'
+
+# git や winget の出力は UTF-8 だが、コンソール既定は日本語環境だと Shift-JIS。
+# 揃えておかないと日本語のコミットメッセージなどが文字化けする。
+try { [Console]::OutputEncoding = [System.Text.Encoding]::UTF8 } catch { }
 $script:Failures = @()
 
 function Write-Step { param([string]$Text) Write-Host "`n=== $Text ===" -ForegroundColor Cyan }

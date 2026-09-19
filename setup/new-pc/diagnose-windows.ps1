@@ -14,6 +14,10 @@ param()
 
 $ErrorActionPreference = 'SilentlyContinue'
 
+# git や winget の出力は UTF-8 だが、コンソール既定は日本語環境だと Shift-JIS。
+# 揃えておかないと日本語のコミットメッセージなどが文字化けする。
+try { [Console]::OutputEncoding = [System.Text.Encoding]::UTF8 } catch { }
+
 function Section { param([string]$T) Write-Host "`n== $T ==" -ForegroundColor Cyan }
 function Line { param([string]$K, $V) Write-Host ("  {0,-22} {1}" -f $K, $V) }
 
@@ -68,8 +72,11 @@ Section '開発ツール'
 foreach ($c in 'winget', 'git', 'node', 'npm', 'code', 'pwsh') {
     $cmd = Get-Command $c -ErrorAction SilentlyContinue
     if ($cmd) {
-        $ver = (& $c --version 2>&1 | Select-Object -First 1)
-        Line $c $ver
+        # 先に全出力を受け取ってから1行目を取る。
+        # 直接 `| Select-Object -First 1` につなぐとパイプラインが早期終了し、
+        # 上流のネイティブコマンドが強制終了されて出力が空になることがある。
+        $out = & $c --version 2>&1
+        Line $c (@($out) | Select-Object -First 1)
     } else {
         Line $c '未導入'
     }

@@ -25,6 +25,10 @@ param(
 # 代わりに各コマンドの終了コードを自分で確認する。
 $ErrorActionPreference = 'Continue'
 
+# git や winget の出力は UTF-8 だが、コンソール既定は日本語環境だと Shift-JIS。
+# 揃えておかないと日本語のコミットメッセージなどが文字化けする。
+try { [Console]::OutputEncoding = [System.Text.Encoding]::UTF8 } catch { }
+
 function Say { param([string]$T) Write-Host "`n>>> $T" -ForegroundColor Cyan }
 
 function Test-LastExit {
