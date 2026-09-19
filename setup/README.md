@@ -93,7 +93,17 @@ PowerShell にそのまま貼り付けても動きます。
 
 ### STEP 2 ── 自動セットアップの実行 ★ここが本体
 
-**PowerShell を「管理者として実行」**で開いて、上から順に貼り付けてください。
+**PowerShell を「管理者として実行」**で開いて、次の**1行**を貼り付けてください。
+git の導入・リポジトリの取得・セットアップの実行までまとめてやります。
+
+```powershell
+$u='https://raw.githubusercontent.com/Poncha0729/junki/main/setup/new-pc/bootstrap.ps1'; $f="$env:TEMP\junki-bootstrap.ps1"; Invoke-WebRequest -UseBasicParsing $u -OutFile $f; Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force; & $f
+```
+
+<details>
+<summary><b>1行で済ませず、手順を分けたい場合</b></summary>
+
+上から順に貼り付けてください。
 
 ```powershell
 # 1) このセッション中だけスクリプト実行を許可
@@ -113,6 +123,8 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force
 ```
 
 > **`$HOME\dev\junki` に置いてください。** OneDrive の中に置くとリポジトリが壊れます。
+
+</details>
 
 スクリプトがやること:
 
@@ -208,6 +220,7 @@ OneDrive・Chrome・VS Code Settings Sync・GitHub の**どれが何を運ぶか
 | ファイル | 内容 |
 |---|---|
 | [new-pc/setup-windows.ps1](new-pc/setup-windows.ps1) | **Windows 用 自動セットアップ** |
+| [new-pc/bootstrap.ps1](new-pc/bootstrap.ps1) | **1行で全部やる**（git導入→取得→セットアップ） |
 | [new-pc/diagnose-windows.ps1](new-pc/diagnose-windows.ps1) | **現状診断**（読み取りのみ。何も変更しません） |
 | [new-pc/verify-windows.ps1](new-pc/verify-windows.ps1) | **Windows 用 セットアップ検証** |
 | [new-pc/THINKPAD-X1-YOGA.md](new-pc/THINKPAD-X1-YOGA.md) | **機種固有の設定**（暗号化・Hello・Vantage・ペン） |
