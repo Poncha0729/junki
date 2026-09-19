@@ -1,0 +1,25 @@
+# 新PCに入れる VS Code 拡張機能の一覧。
+# setup-windows.ps1 / setup-macos.sh がこのファイルを読んで一括インストールします。
+# 不要なものは行頭に # を付けてコメントアウトしてください。
+
+# --- このプロジェクト（Next.js + TypeScript + Tailwind）に必須 ---
+dbaeumer.vscode-eslint
+esbenp.prettier-vscode
+bradlc.vscode-tailwindcss
+yoavbls.pretty-ts-errors
+
+# --- 日本語環境 ---
+ms-ceintl.vscode-language-pack-ja
+
+# --- Git / GitHub（2台運用の要） ---
+eamodio.gitlens
+github.vscode-pull-request-github
+
+# --- AI ---
+anthropic.claude-code
+
+# --- あると効率が上がるもの ---
+usernamehw.errorlens
+christian-kohler.path-intellisense
+formulahendry.auto-rename-tag
+mikestead.dotenv

@@ -22,7 +22,11 @@ yarn-error.log*
 
 # IDE
 .idea/
-.vscode/
+.vscode/*
+# ただし2台のPCでエディタ設定を揃えるため、この2つだけは共有する
+# （ディレクトリごと除外すると中の否定パターンが効かないので .vscode/* と書く）
+!.vscode/extensions.json
+!.vscode/settings.json
 *.swp
 *.swo
 

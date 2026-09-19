@@ -1,142 +1,144 @@
-# メール文テンプレート生成ツール
+# EKICHO — 東京の駅エリアガイド
 
-### 概要
-メール文テンプレートを自動生成するツールです。入力フォームで項目を入力すると、リアルタイムでメール文が生成され、コピーできます。
+駅ごとの雰囲気・家賃相場・出口情報・周辺スポットをまとめて見られる Web アプリです。
+自宅でも外出先でも、同じ内容をブラウザから確認できます。
 
-### テクノロジースタック
-- Next.js 14 (App Router)
-- TypeScript
-- Tailwind CSS
-- React 18
+- **Next.js 14（App Router）/ TypeScript / Tailwind CSS / React 18**
+- 日本語・英語のバイリンガル対応（`next-intl`）
 
-### 起動手順
-1. プロジェクトルートで以下のコマンドを実行：
+---
+
+## 🆕 新しいPCでこれから始める方へ
+
+**→ [`setup/README.md`](setup/README.md) を最初に読んでください。**
+
+新PCのセットアップ、現PCとの同期、物件探しの環境づくり、
+不要ソフトの整理までを一通りまとめてあります。
+
+---
+
+## 起動手順
+
 ```bash
 npm install
 npm run dev
 ```
 
-2. ブラウザで http://localhost:3000 にアクセス
+ブラウザで http://localhost:3000 を開きます。
 
-### カスタマイズ方法
-1. プレースホルダーの追加/変更：
-   - `/lib/template.ts` の `placeholders` 配列を編集
-   - テンプレート文字列内の `{{N}}` を対応する位置に追加
+> **Node.js 20 以上が必要です**（`.nvmrc` は 22 を指定）。
+> パッケージマネージャは **npm** を使ってください（`package-lock.json` を採用しています）。
 
-2. メール文テンプレートの変更：
-   - `/lib/template.ts` の `emailTemplate` 文字列を編集
-   - `{{N}}` の形式でプレースホルダーを参照可能
+## スクリプト
 
-### デザイン特徴
-- レスポンシブデザイン（md 以上で左右2カラム、sm 以下で縦並び）
-- ホワイトベースのUIに淡いグリーンアクセント
-- Roundedカードデザイン
-- リアルタイムプレビュー機能
-- クリップボード
-
-### 2. プロジェクトのセットアップ
-1. 依存関係のインストール:
-```bash
-pnpm install
-```
-
-2. 開発サーバーの起動:
-```bash
-pnpm dev
-```
-
-### 3. ポートの変更
-デフォルトでは、開発サーバーはポート 3000 を使用します。他のアプリケーションがポート 3000 を使用している場合は、以下のコマンドで別のポートを指定できます：
-
-```bash
-pnpm dev --port 3001
-```
-
-### 4. トラブルシューティング
-#### エラー: `ERR_CONNECTION_REFUSED`
-1. 開発サーバーが起動しているか確認してください。
-2. ターミナルで `pnpm dev` の実行結果を確認し、エラーがないか確認してください。
-3. ファイアウォールがブロックしていないか確認してください。
-4. ポート 3000 が他のアプリケーションで使用されていないか確認してください。
-
-#### エラー: `pnpm: コマンドが見つかりません`
-1. pnpm がインストールされているか確認してください。
-2. システムの PATH に pnpm のインストール場所が含まれているか確認してください。
-3. ターミナルを再起動して、環境変数の変更を反映させてください。
-
-#### エラー: `Cannot find module` エラー
-1. `pnpm install` を実行して依存関係を再インストールしてください。
-2. `node_modules` フォルダを削除し、`pnpm install` を再度実行してください。
-3. TypeScript のエラーメッセージを確認し、必要なパッケージを追加してください。
-
-## 機能
-
-- バイリンガル対応（日本語/英語）
-- 駅周辺エリアの可視化
-- インタラクティブな出口マップとPOI情報
-- 家賃比較
-- 生活スナップショット
-- モバイル対応デザイン
+| コマンド | 内容 |
+|---|---|
+| `npm run dev` | 開発サーバを起動（http://localhost:3000） |
+| `npm run dev:lan` | 同一Wi-Fi内の端末からも見られる形で起動（タブレット確認用） |
+| `npm run build` | 本番ビルド |
+| `npm run start` | 本番ビルドを起動 |
+| `npm run lint` | ESLint |
+| `npm run typecheck` | TypeScript の型チェック |
+| `npm run verify` | **typecheck → lint → build を通しで実行。push 前に必ずこれ** |
 
 ## プロジェクト構造
 
 ```
-app/
-  page.tsx          # ホームページ
-  stations/
-    [slug]/page.tsx # 動的駅ページ
-components/
-  StationPage.tsx   # 駅ページコンポーネント
-lib/
-  stations.ts       # 偽データ
+src/
+  app/
+    layout.tsx            # ルートレイアウト（i18n プロバイダ・グローバルCSS）
+    page.tsx              # ホーム（駅の検索・一覧）
+    manifest.ts           # Web アプリマニフェスト（タブレットのホーム画面用）
+    globals.css           # Tailwind のエントリポイント
+    stations/[slug]/      # 駅ごとの詳細ページ
+  components/
+    StationPage.tsx       # 駅詳細の本体
+    RentChart.tsx         # 間取り別の家賃比較
+    StationMap.tsx        # 駅周辺の地図（OpenStreetMap 埋め込み）
+    StationImage.tsx      # 写真が無いときに代替表示へ切り替える画像
+  lib/
+    stations.ts           # 駅データと検索ロジック
+  locales/
+    ja.json / en.json     # 表示文言
+  i18n/
+    request.ts            # next-intl の設定（既定=日本語）
 public/
-  images/           # 駅の写真
-styles/
-  globals.css       # グローバルスタイル
+  images/stations/        # 駅の写真を置く場所
+  icons/                  # アプリアイコン（生成物）
+scripts/
+  generate-icons.py       # アイコン生成（標準ライブラリのみ・依存なし）
+docs/
+  STATION-DATA.md         # 駅データの増やし方
+setup/                    # 新PCセットアップ・2台運用のキット
+legacy/                   # 使っていない旧コード（下記参照）
 ```
 
-## ピンボールゲーム
+## 駅データ
 
-React 18 + Next.js 14 (App Router)、Tailwind CSS、TypeScriptを使用したMatter.jsによる物理シミュレーションを搭載した、シンプルなWebベースのピンボールゲームです。
+駅の情報は [`src/lib/stations.ts`](src/lib/stations.ts) の1ファイルにまとまっています。
+ここに駅を追加すると、一覧・検索・詳細ページが自動で増えます。
 
-## ピンボールゲームのセットアップ
-## Pinball Game Getting Started
+**家賃相場は出典が確認できたものだけを載せる方針**です。未登録の駅は画面上で
+「まだ登録されていません」と表示され、推測値は出しません。
+追加の手順は [`docs/STATION-DATA.md`](docs/STATION-DATA.md) を参照してください。
 
-First, install dependencies:
+## 地図
+
+駅周辺の地図は OpenStreetMap の埋め込みを使っています。
+**APIキーもアカウントも不要**なので、新しいPCでもタブレットでも設定なしで表示されます。
+
+## タブレット対応（PWA）
+
+`src/app/manifest.ts` を持っているため、タブレットで「ホーム画面に追加」すると
+アドレスバーのない全画面のアプリとして起動します。アイコンは iPad（apple-touch-icon）と
+Android（maskable 含む）の両方に対応したものを `public/icons/` に同梱済みです。
+
+配色や形を変えたい場合:
 
 ```bash
-npm install
+python3 scripts/generate-icons.py
 ```
 
-Then run the development server:
+外部ライブラリを使っていないので、どちらのPCでもそのまま実行できます。
 
-```bash
-npm run dev
-```
+## CI
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the game.
+`.github/workflows/ci.yml` で、push のたびに型チェック・Lint・ビルドが走ります。
+2台のPCから交互に push する運用のため、**壊れた状態がもう片方のPCに渡る前に検知する**のが目的です。
 
-## Pinball Game Controls
+## 多言語の切り替え
 
-- Left Arrow: Left flipper
-- Right Arrow: Right flipper
-- Space: Launch ball
-- F5: Reset score
+既定は日本語です。`NEXT_LOCALE` クッキーを `en` にすると英語表示になります
+（URL でロケールを分けない構成なので、外出先のタブレットでも同じURLのまま使えます）。
+切り替えの仕組みは [`src/i18n/request.ts`](src/i18n/request.ts) にあります。
 
-## Pinball Game Features
+## デプロイ
 
-- Neon-dark aesthetic with gradient background
-- Physics-based ball movement using Matter.js
-- Score tracking
-- Interactive flippers
-- Bumpers with high restitution
-- Responsive canvas
+Vercel に GitHub 連携でインポートすれば、設定はすべて自動検出されます。
+以後は `git push` するだけで公開URLが更新されます。
 
-## Deployment
+---
 
-To deploy this project to Vercel:
+## 既知の未対応事項
 
-1. Push to GitHub
-2. Import to Vercel
-3. Connect your GitHub repository
-4. Deploy
+- **家賃相場が入っているのは渋谷のみ**で、その値もリポジトリに元から入っていた
+  サンプルです（画面上でもその旨を表示しています）。他の9駅は未登録です。
+  実データへの差し替え手順は [`docs/STATION-DATA.md`](docs/STATION-DATA.md) にあります。
+- **駅の写真が未配置です。** `public/images/stations/<slug>/` に画像を置き、
+  `stations.ts` の `photos` に追記すると表示されます。
+  それまでは壊れた画像ではなく代替表示が出ます。
+- **収録は10駅のみ**です（渋谷・新宿・池袋・東京・品川・上野・恵比寿・中目黒・
+  吉祥寺・三軒茶屋）。
+
+## `legacy/` について
+
+ビルドと型チェックの対象外にした、使われていないコードの置き場です。
+削除はしていないので、必要なら戻せます。不要だと判断できたらフォルダごと消して構いません。
+
+- `legacy/portfolio/` — 以前ルートに置かれていた**別プロジェクトのポートフォリオ雛形**。
+  Next.js は `app/` と `src/app/` が同時にあると `app/` を優先するため、
+  これがあると EKICHO 側のページが一切表示されない状態でした。
+- `legacy/components/` — どこからも import されていなかったコンポーネント群
+  （Hero, Footer, About, CTASection, UserVoices, FeaturedStations, StationSearch,
+  MapShowcase, PinballTable）。存在しない動画ファイルを参照していたり、
+  `stations.ts` とは無関係な固定データを持っていたりと、いずれも未完成のものです。

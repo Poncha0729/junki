@@ -1,0 +1,35 @@
+# 2台運用で事故らないための git 設定。
+# setup-windows.ps1 / setup-macos.sh が自動で適用しますが、
+# 手で入れたい場合はこの内容を ~/.gitconfig にマージしてください。
+
+[user]
+	name  = ここにあなたの名前
+	email = ここにあなたのメールアドレス
+
+[init]
+	# 新規リポジトリの既定ブランチを main に統一
+	defaultBranch = main
+
+[core]
+	# 改行コードを LF に固定。Windows と macOS の間で差分が出るのを防ぐ
+	autocrlf = input
+	# 日本語ファイル名を \346\227\245... と文字化けさせない
+	quotepath = false
+	# macOS の濁点分解（NFD）対策。Windows 側と同じ表記に揃う
+	precomposeunicode = true
+
+[pull]
+	# 2台で交互に触ると merge コミットが乱立するため rebase に固定
+	rebase = true
+
+[fetch]
+	# 消えたリモートブランチをローカルからも自動で掃除
+	prune = true
+
+[push]
+	# 現在のブランチと同名のリモートブランチにだけ push する
+	default = current
+
+[diff]
+	# 関数名などを見て、より読みやすい差分を出す
+	algorithm = histogram

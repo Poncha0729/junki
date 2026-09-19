@@ -4,10 +4,14 @@
   "pros": "メリット",
   "cons": "デメリット",
   "exits": "駅出口",
-  "rentPrices": "平均家賃",
+  "rentPrices": "家賃相場",
   "livingSnapshots": "生活スナップショット",
-  "lastUpdated": "最終更新日: {{date}}",
+  "lastUpdated": "最終更新日: {date}",
   "prosCons": "メリット・デメリット",
-  "search": "駅を検索...",
-  "featured": "おすすめ駅"
+  "search": "駅名・路線・区で検索",
+  "featured": "おすすめ駅",
+  "backToList": "駅一覧",
+  "aroundStation": "駅周辺",
+  "resultCount": "{total}駅中 {count}駅を表示",
+  "noResults": "該当する駅が見つかりませんでした"
 }
