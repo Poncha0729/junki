@@ -69,9 +69,15 @@ Test-Item 'pull.rebase' { git config --global pull.rebase }
 
 Write-Host "`n=== Node のバージョン要件 ===" -ForegroundColor Cyan
 Test-Item 'node >= 20' {
-    $major = [int](node -p 'process.versions.node.split(".")[0]')
-    if ($major -lt 20) { throw "v$major は古すぎます" }
-    "v$major (OK)"
+    # `node -p '...'` に " を含む式を渡すと、PowerShell がネイティブコマンドへ
+    # 引数を渡す際に " を落としてしまい、node 側が文法エラーになる。
+    # （実際に v24 が入っているのに v0 と誤判定した）
+    # 解析は PowerShell 側で完結させて、node には --version だけ渡す。
+    $raw = (node --version) | Select-Object -First 1
+    if (-not $raw) { throw 'バージョンを取得できません' }
+    $major = [int](($raw -replace '^v', '').Split('.')[0])
+    if ($major -lt 20) { throw "$raw は古すぎます（20以上が必要）" }
+    "$raw (OK)"
 }
 
 Write-Host "`n=== プロジェクト ===" -ForegroundColor Cyan

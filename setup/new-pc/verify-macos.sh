@@ -36,7 +36,9 @@ check 'user.email'  git config --global user.email
 check 'pull.rebase' git config --global pull.rebase
 
 printf '\n%s=== Node のバージョン要件 ===%s\n' "$c_cyan" "$c_reset"
-check 'node >= 20' bash -c 'v=$(node -p "process.versions.node.split(\".\")[0]"); [ "$v" -ge 20 ] && echo "v$v (OK)" || { echo "v$v は古すぎます"; exit 1; }'
+# node には --version だけ渡し、解析はシェル側で完結させる。
+# 複雑な式を渡すと引用符のエスケープが壊れやすい（Windows 版で実際に踏んだ）。
+check 'node >= 20' bash -c 'raw=$(node --version); v=${raw#v}; v=${v%%.*}; [ -n "$v" ] || { echo "バージョンを取得できません"; exit 1; }; [ "$v" -ge 20 ] && echo "$raw (OK)" || { echo "$raw は古すぎます（20以上が必要）"; exit 1; }'
 
 printf '\n%s=== プロジェクト ===%s\n' "$c_cyan" "$c_reset"
 check 'node_modules' bash -c "[ -d '$REPO_ROOT/node_modules' ] && echo 導入済み || { echo '未導入 — npm install を実行してください'; exit 1; }"
