@@ -1,61 +1,52 @@
-# 新PC セットアップ / 2台＋タブレット運用キット
+# 新PC（Windows）セットアップ / 2台＋タブレット運用キット
 
-このディレクトリは、**新しく買ったPCを現在のPCと同じ状態に揃え、2台＋タブレットで
-運用できるようにする**ための手順書と自動化スクリプトです。
+新しく買った Windows PC を現在のPCと同じ状態に揃え、
+**現PC（AIメイン）＋新PC＋外出先のタブレット**で運用するための手順書と自動化スクリプトです。
 
 ---
 
-## ⚠️ 最初に読んでください（このキットの前提）
+## ⚠️ 最初に読んでください
 
 このキットを作った Claude は、**クラウド上の隔離されたコンテナの中で、この Git リポジトリだけ**を
 見て動いています。**あなたのPC（現行機・新機）やタブレットには一切アクセスできません。**
 
-そのため、以下は**物理的に実行できません**:
-
-| できないこと | 理由 |
-|---|---|
-| 新PCへのソフトのインストール | あなたのPCに接続する手段がない |
-| 現PCの設定の読み取り・コピー | 同上 |
-| 不要ソフトのアンインストール | 同上 |
-| タブレットの設定 | 同上 |
-
+そのため、ソフトのインストール・設定のコピー・不要ソフトの削除は、**こちらでは実行できません。**
 代わりに用意したのが、**あなたが新PCで1回コマンドを叩けば同じ状態になる**この自動化キットです。
 実行するのはあなたですが、中身（入れるもの・順番・設定値）は全部こちらで決めて書いてあります。
 
 ---
 
-## 全体構成（この3台で何をするか）
+## 全体構成
 
 ```
 ┌──────────────────┐        ┌──────────────────┐
-│  現PC（母艦）      │        │  新PC             │
-│  AI 作業メイン     │        │  開発・事務作業    │
-│  - Claude Code     │        │  - 同じ開発環境    │
-│  - 重い生成処理     │        │  - 同じVS Code設定 │
+│  現PC（母艦）      │        │  新PC（Windows）   │
+│  AI 作業メイン     │        │  日常作業・物件検討 │
+│  - Claude          │        │  - Chrome / VS Code│
+│  - 重い生成処理     │        │  - OneDrive        │
 └─────────┬────────┘        └─────────┬────────┘
           │                            │
-          │      GitHub（唯一の正）      │
+          │  ① コード → GitHub          │
+          │  ② ファイル → OneDrive      │
+          │  ③ ブラウザ → Google 同期    │
           └────────────┬───────────────┘
-                       │  git push / pull
+                       │
                        ▼
               ┌─────────────────┐
-              │  Vercel（公開URL） │
-              └─────────┬───────┘
-                        │ HTTPS
-                        ▼
-              ┌─────────────────┐
               │ タブレット（外出先） │
-              │ 物件・駅エリアを閲覧 │
+              │ 物件サイトで検索    │
+              │ Chrome 同期でPCと往復│
               └─────────────────┘
 ```
 
 **設計の要点**
 
-1. **コードの正は GitHub 1か所だけ。** PC間でフォルダを直接同期しない
-   （node_modules や .next をクラウド同期すると必ず壊れます → [SYNC.md](sync/SYNC.md)）。
-2. **外出先のタブレットは Vercel の公開URLを見る。** 自宅LANの `localhost:3000` は
-   外からは届きません → [TABLET.md](tablet/TABLET.md)。
-3. **現PCはAIメイン、新PCは開発。** どちらでも同じコマンドが動くよう環境を揃えます。
+1. **コードの正は GitHub 1か所だけ。** リポジトリを OneDrive の中に置かない
+   （`node_modules` と `.git` が壊れます → [sync/SYNC.md](sync/SYNC.md)）
+2. **ファイルは OneDrive、ブラウザは Google アカウント。** 役割を分ける
+   → [sync/FILES-AND-ACCOUNTS.md](sync/FILES-AND-ACCOUNTS.md)
+3. **外出先のタブレットは Chrome 同期でPCとつながる**
+   → [tablet/PROPERTY-SEARCH.md](tablet/PROPERTY-SEARCH.md)
 
 ---
 
@@ -63,120 +54,121 @@
 
 ### STEP 0 ── 現PC（今使っているPC）でやること
 
-新PCに持っていく必要があるものを確認します。所要 5分。
+所要 5分。新PCに持っていくものを確認します。
 
-1. このリポジトリに未 push の変更がないか確認する
+1. 未 push の変更がないか確認する
    ```bash
    git status
    git push
    ```
-2. `.env` / `.env.local` があるかを確認する（あれば**手でコピー**します。Git には乗りません）
-   ```bash
-   ls -a | grep env
-   ```
+2. `.env` / `.env.local` があるか確認する（あれば**手でコピー**します。Git には乗りません）
 3. VS Code の設定を GitHub アカウントに同期しておく
    `VS Code → 左下の歯車 → Backup and Sync Settings → GitHub でサインイン`
+4. Chrome が Google アカウントでログイン済みか確認する
 
-### STEP 1 ── 新PC の初期設定（OSの手順）
+### STEP 1 ── 新PC の初期設定
 
-OS標準のセットアップを済ませてください（ここだけは画面操作が必要です）。
+ここだけは画面操作が必要です。
 
-- Windows: Microsoft アカウントでサインイン → Windows Update を「更新なし」になるまで繰り返す
-- macOS: Apple ID でサインイン → システム設定 → 一般 → ソフトウェアアップデート
+1. Microsoft アカウントでサインイン
+2. **Windows Update を「更新なし」になるまで繰り返す**（再起動を挟んで数回かかります）
+3. Wi-Fi に接続
 
 ### STEP 2 ── 自動セットアップの実行 ★ここが本体
 
-新PCで**管理者権限のターミナル**を開いて、OSに合う方を実行します。
-
-<details>
-<summary><b>Windows の場合</b></summary>
-
-PowerShell を「管理者として実行」で開き:
+**PowerShell を「管理者として実行」**で開いて、上から順に貼り付けてください。
 
 ```powershell
-# 1) スクリプトの実行を一時的に許可
+# 1) このセッション中だけスクリプト実行を許可
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force
 
-# 2) リポジトリを取得（git が無ければスクリプトが先に入れます）
+# 2) Git を入れる
 winget install --id Git.Git -e --accept-source-agreements --accept-package-agreements
+
+# 3) PowerShell を開き直してから、リポジトリを取得
 git clone https://github.com/Poncha0729/junki.git $HOME\dev\junki
 cd $HOME\dev\junki
+git checkout claude/new-pc-setup-sync-8iilyg
 
-# 3) セットアップ実行
+# 4) セットアップ実行
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force
 .\setup\new-pc\setup-windows.ps1
 ```
-</details>
 
-<details>
-<summary><b>macOS の場合</b></summary>
+> **`$HOME\dev\junki` に置いてください。** OneDrive の中に置くとリポジトリが壊れます。
 
-ターミナルを開き:
+スクリプトがやること:
 
-```bash
-# 1) リポジトリを取得（git が無ければ Xcode CLT の導入を促されます）
-mkdir -p ~/dev && git clone https://github.com/Poncha0729/junki.git ~/dev/junki
-cd ~/dev/junki
+| | 内容 |
+|---|---|
+| 1 | winget の確認 |
+| 2 | Git / Node.js 22 / VS Code / PowerShell 7 / Windows Terminal / Chrome / Claude デスクトップ / PowerToys / 7-Zip を導入 |
+| 3 | `git config`（名前・メール・改行コード・rebase・日本語ファイル名） |
+| 4 | VS Code 拡張機能の一括インストール |
+| 5 | このプロジェクトの `npm install` |
+| 6 | （任意）タブレットからLAN経由で見るためのポート開放 |
 
-# 2) セットアップ実行
-bash setup/new-pc/setup-macos.sh
-```
-</details>
+**既に入っているものはスキップします。**何度実行しても壊れません。**何も削除しません。**
 
-スクリプトがやること（両OS共通）:
-
-- パッケージマネージャ（winget / Homebrew）の確認
-- Git, Node.js 22 LTS, VS Code, ブラウザ, Claude デスクトップ等のインストール
-- `git config`（ユーザー名・メール・改行コード・既定ブランチ）
-- VS Code 拡張機能の一括インストール（[dotfiles/vscode-extensions.txt](dotfiles/vscode-extensions.txt)）
-- このプロジェクトの `npm install`
-- タブレットからLAN経由で見るためのファイアウォール穴あけ（任意・確認あり）
-
-**既に入っているものはスキップします**（何度実行しても壊れません）。
+不要なアプリがあれば、`setup\new-pc\setup-windows.ps1` の `$Packages` から行を消すか
+先頭に `#` を付けてください。
 
 ### STEP 3 ── 検証
 
-```bash
-# Windows
+```powershell
 .\setup\new-pc\verify-windows.ps1
-
-# macOS
-bash setup/new-pc/verify-macos.sh
 ```
 
-すべて `OK` になれば完了です。仕上げに、プロジェクトが動くことを確認します:
+すべて `[OK]` になれば完了です。仕上げに:
 
-```bash
+```powershell
 npm run verify   # 型チェック + Lint + ビルド
 npm run dev      # http://localhost:3000
 ```
 
 ### STEP 4 ── 2台の同期設定
 
-→ **[sync/SYNC.md](sync/SYNC.md)** を参照。
-何を GitHub で同期し、何を手でコピーし、**何を絶対にクラウド同期してはいけないか**を書いてあります。
+- コードの同期 → **[sync/SYNC.md](sync/SYNC.md)**
+- ファイルとアカウントの同期 → **[sync/FILES-AND-ACCOUNTS.md](sync/FILES-AND-ACCOUNTS.md)**
 
-### STEP 5 ── 外出先のタブレットから物件を見られるようにする
+OneDrive・Chrome・VS Code Settings Sync・GitHub の**どれが何を運ぶか**を整理してあります。
 
-→ **[tablet/TABLET.md](tablet/TABLET.md)** を参照。
-Vercel への公開とタブレットのホーム画面登録まで。
+### STEP 5 ── タブレットで物件を探せるようにする
+
+→ **[tablet/PROPERTY-SEARCH.md](tablet/PROPERTY-SEARCH.md)**
+
+要点は3つだけです。
+
+1. 物件サイトで**必ずアカウントを作ってログイン**する（しないとお気に入りが端末内保存）
+2. タブレットとPCで**同じ Chrome アカウント**にする（iPad なら Chrome を入れる）
+3. **横断メモを1か所**に決める
 
 ### STEP 6 ── 不要ソフトの整理
 
-→ **[cleanup/CLEANUP.md](cleanup/CLEANUP.md)** を参照。
-**既定は「表示するだけ」で何も消しません。** 一覧を見て、消すものをあなたが選びます。
+→ **[cleanup/CLEANUP.md](cleanup/CLEANUP.md)**
+
+```powershell
+# まず一覧を見る（何も消えません）
+.\setup\cleanup\cleanup-windows.ps1
+
+# 見たうえで、1件ずつ確認しながら消す
+.\setup\cleanup\cleanup-windows.ps1 -Remove
+```
+
+**既定は表示のみです。** ランタイムやドライバなど消してはいけないものは除外してあります。
 
 ---
 
-## ✋ あなたにしかできないこと（Claude側では代行不可）
+## ✋ あなたにしかできないこと
 
 | # | 作業 | 場所 |
 |---|---|---|
-| 1 | OS初期設定・Windows Update / macOS アップデート | 新PC |
-| 2 | 各種アカウントへのサインイン（Microsoft/Apple/Google/GitHub/Anthropic） | 新PC |
-| 3 | `.env` / `.env.local` など秘密情報の移送 | 現PC → 新PC |
-| 4 | Vercel でのデプロイ承認（GitHub 連携の許可） | ブラウザ |
+| 1 | Windows の初期設定・Windows Update | 新PC |
+| 2 | 各アカウントへのサインイン（Microsoft / Google / GitHub / Anthropic） | 新PC |
+| 3 | `.env` など秘密情報の移送 | 現PC → 新PC |
+| 4 | 物件サイトのアカウント作成 | ブラウザ |
 | 5 | 不要ソフトの最終的な削除判断 | 新PC |
-| 6 | タブレットのホーム画面登録 | タブレット |
+| 6 | タブレットへの Chrome 導入とログイン | タブレット |
 
 ---
 
@@ -184,14 +176,23 @@ Vercel への公開とタブレットのホーム画面登録まで。
 
 | ファイル | 内容 |
 |---|---|
-| [new-pc/setup-windows.ps1](new-pc/setup-windows.ps1) | Windows 用 自動セットアップ |
-| [new-pc/setup-macos.sh](new-pc/setup-macos.sh) | macOS 用 自動セットアップ |
-| [new-pc/verify-windows.ps1](new-pc/verify-windows.ps1) | Windows 用 セットアップ検証 |
-| [new-pc/verify-macos.sh](new-pc/verify-macos.sh) | macOS 用 セットアップ検証 |
-| [sync/SYNC.md](sync/SYNC.md) | 2台運用の同期設計 |
-| [tablet/TABLET.md](tablet/TABLET.md) | 外出先タブレットからの閲覧 |
+| [new-pc/setup-windows.ps1](new-pc/setup-windows.ps1) | **Windows 用 自動セットアップ** |
+| [new-pc/verify-windows.ps1](new-pc/verify-windows.ps1) | **Windows 用 セットアップ検証** |
+| [sync/SYNC.md](sync/SYNC.md) | コードの同期（GitHub 運用） |
+| [sync/FILES-AND-ACCOUNTS.md](sync/FILES-AND-ACCOUNTS.md) | ファイルとアカウントの同期（OneDrive・Chrome ほか） |
+| [tablet/PROPERTY-SEARCH.md](tablet/PROPERTY-SEARCH.md) | **外出先のタブレットで物件を探す** |
+| [tablet/TABLET.md](tablet/TABLET.md) | （参考）このリポジトリのアプリをタブレットで見る場合 |
 | [cleanup/CLEANUP.md](cleanup/CLEANUP.md) | 不要ソフト整理の手順 |
 | [cleanup/cleanup-windows.ps1](cleanup/cleanup-windows.ps1) | 導入済みソフトの棚卸し（既定=表示のみ） |
-| [dotfiles/](dotfiles/) | VS Code 設定・拡張機能・git 設定 |
+| [dotfiles/](dotfiles/) | VS Code 拡張機能リスト・git 設定 |
 | [`../CLAUDE.md`](../CLAUDE.md) | Claude Code がこのリポジトリで守る前提（2台で共有） |
-| [`../.github/workflows/ci.yml`](../.github/workflows/ci.yml) | push のたびに型チェック・Lint・ビルドを自動実行 |
+
+---
+
+## macOS について
+
+新PCは Windows とのことなので、上の手順は Windows 前提で書いてあります。
+macOS 用のスクリプト（[new-pc/setup-macos.sh](new-pc/setup-macos.sh) /
+[new-pc/verify-macos.sh](new-pc/verify-macos.sh) /
+[cleanup/cleanup-macos.sh](cleanup/cleanup-macos.sh)）も残してありますが、
+**今回は使いません。** 将来 Mac を足す場合はそちらを実行してください。

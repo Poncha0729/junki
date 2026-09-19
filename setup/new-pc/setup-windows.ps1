@@ -83,6 +83,7 @@ $Packages = @(
     @{ Id = 'Microsoft.WindowsTerminal';  Name = 'Windows Terminal' }
     @{ Id = 'Google.Chrome';              Name = 'Google Chrome' }
     @{ Id = 'Anthropic.Claude';           Name = 'Claude デスクトップ' }
+    @{ Id = 'Microsoft.PowerToys';        Name = 'PowerToys（ウィンドウ整列など）' }
     @{ Id = '7zip.7zip';                  Name = '7-Zip' }
 )
 
