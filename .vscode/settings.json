@@ -1,0 +1,26 @@
+{
+  "// メモ": "2台のPCで挙動を揃えるためのプロジェクト設定。個人の好み（テーマ・フォント等）はここに書かず、VS Code の Settings Sync に任せてください。",
+
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+
+  "files.eol": "\n",
+  "files.insertFinalNewline": true,
+  "files.trimTrailingWhitespace": true,
+
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+
+  "tailwindCSS.includeLanguages": {
+    "typescriptreact": "javascript"
+  },
+
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/.next": true,
+    "**/legacy": true
+  }
+}

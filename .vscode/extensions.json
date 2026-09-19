@@ -1,0 +1,15 @@
+{
+  "// メモ": "このリポジトリを開くと VS Code が推奨拡張としてインストールを提案します。2台のエディタ環境を揃えるための仕組みです。",
+  "recommendations": [
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "bradlc.vscode-tailwindcss",
+    "yoavbls.pretty-ts-errors",
+    "ms-ceintl.vscode-language-pack-ja",
+    "eamodio.gitlens",
+    "github.vscode-pull-request-github",
+    "anthropic.claude-code",
+    "usernamehw.errorlens",
+    "mikestead.dotenv"
+  ]
+}

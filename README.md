@@ -1,142 +1,99 @@
-# メール文テンプレート生成ツール
+# EKICHO — 東京の駅エリアガイド
 
-### 概要
-メール文テンプレートを自動生成するツールです。入力フォームで項目を入力すると、リアルタイムでメール文が生成され、コピーできます。
+駅ごとの雰囲気・家賃相場・出口情報・周辺スポットをまとめて見られる Web アプリです。
+外出先ではタブレットから、自宅では PC から同じ内容を確認できます。
 
-### テクノロジースタック
-- Next.js 14 (App Router)
-- TypeScript
-- Tailwind CSS
-- React 18
+- **Next.js 14（App Router）/ TypeScript / Tailwind CSS / React 18**
+- 日本語・英語のバイリンガル対応（`next-intl`）
 
-### 起動手順
-1. プロジェクトルートで以下のコマンドを実行：
+---
+
+## 🆕 新しいPCでこれから始める方へ
+
+**→ [`setup/README.md`](setup/README.md) を最初に読んでください。**
+
+新PCのセットアップ、現PCとの同期、外出先タブレットからの閲覧、
+不要ソフトの整理までを一通りまとめてあります。
+
+---
+
+## 起動手順
+
 ```bash
 npm install
 npm run dev
 ```
 
-2. ブラウザで http://localhost:3000 にアクセス
+ブラウザで http://localhost:3000 を開きます。
 
-### カスタマイズ方法
-1. プレースホルダーの追加/変更：
-   - `/lib/template.ts` の `placeholders` 配列を編集
-   - テンプレート文字列内の `{{N}}` を対応する位置に追加
+> **Node.js 20 以上が必要です**（`.nvmrc` は 22 を指定）。
+> パッケージマネージャは **npm** を使ってください（`package-lock.json` を採用しています）。
 
-2. メール文テンプレートの変更：
-   - `/lib/template.ts` の `emailTemplate` 文字列を編集
-   - `{{N}}` の形式でプレースホルダーを参照可能
+## スクリプト
 
-### デザイン特徴
-- レスポンシブデザイン（md 以上で左右2カラム、sm 以下で縦並び）
-- ホワイトベースのUIに淡いグリーンアクセント
-- Roundedカードデザイン
-- リアルタイムプレビュー機能
-- クリップボード
-
-### 2. プロジェクトのセットアップ
-1. 依存関係のインストール:
-```bash
-pnpm install
-```
-
-2. 開発サーバーの起動:
-```bash
-pnpm dev
-```
-
-### 3. ポートの変更
-デフォルトでは、開発サーバーはポート 3000 を使用します。他のアプリケーションがポート 3000 を使用している場合は、以下のコマンドで別のポートを指定できます：
-
-```bash
-pnpm dev --port 3001
-```
-
-### 4. トラブルシューティング
-#### エラー: `ERR_CONNECTION_REFUSED`
-1. 開発サーバーが起動しているか確認してください。
-2. ターミナルで `pnpm dev` の実行結果を確認し、エラーがないか確認してください。
-3. ファイアウォールがブロックしていないか確認してください。
-4. ポート 3000 が他のアプリケーションで使用されていないか確認してください。
-
-#### エラー: `pnpm: コマンドが見つかりません`
-1. pnpm がインストールされているか確認してください。
-2. システムの PATH に pnpm のインストール場所が含まれているか確認してください。
-3. ターミナルを再起動して、環境変数の変更を反映させてください。
-
-#### エラー: `Cannot find module` エラー
-1. `pnpm install` を実行して依存関係を再インストールしてください。
-2. `node_modules` フォルダを削除し、`pnpm install` を再度実行してください。
-3. TypeScript のエラーメッセージを確認し、必要なパッケージを追加してください。
-
-## 機能
-
-- バイリンガル対応（日本語/英語）
-- 駅周辺エリアの可視化
-- インタラクティブな出口マップとPOI情報
-- 家賃比較
-- 生活スナップショット
-- モバイル対応デザイン
+| コマンド | 内容 |
+|---|---|
+| `npm run dev` | 開発サーバを起動（http://localhost:3000） |
+| `npm run dev:lan` | 同一Wi-Fi内の端末からも見られる形で起動（タブレット確認用） |
+| `npm run build` | 本番ビルド |
+| `npm run start` | 本番ビルドを起動 |
+| `npm run lint` | ESLint |
+| `npm run typecheck` | TypeScript の型チェック |
+| `npm run verify` | **typecheck → lint → build を通しで実行。push 前に必ずこれ** |
 
 ## プロジェクト構造
 
 ```
-app/
-  page.tsx          # ホームページ
-  stations/
-    [slug]/page.tsx # 動的駅ページ
-components/
-  StationPage.tsx   # 駅ページコンポーネント
-lib/
-  stations.ts       # 偽データ
+src/
+  app/
+    layout.tsx            # ルートレイアウト（i18n プロバイダ・グローバルCSS）
+    page.tsx              # ホーム（駅検索・おすすめ駅）
+    globals.css           # Tailwind のエントリポイント
+    stations/[slug]/      # 駅ごとの詳細ページ
+  components/             # UI コンポーネント
+    StationPage.tsx       #   駅詳細の本体
+    PinballTable.tsx      #   Matter.js のピンボール（おまけ）
+  lib/
+    stations.ts           # 駅データ（現状はサンプルデータ）
+  locales/
+    ja.json / en.json     # 表示文言
+  i18n/
+    request.ts            # next-intl の設定（既定=日本語）
 public/
-  images/           # 駅の写真
-styles/
-  globals.css       # グローバルスタイル
+  images/                 # 駅の写真を置く場所
+setup/                    # 新PCセットアップ・2台運用のキット
+legacy/                   # 使っていない旧ポートフォリオ雛形（下記参照）
 ```
 
-## ピンボールゲーム
+## 多言語の切り替え
 
-React 18 + Next.js 14 (App Router)、Tailwind CSS、TypeScriptを使用したMatter.jsによる物理シミュレーションを搭載した、シンプルなWebベースのピンボールゲームです。
+既定は日本語です。`NEXT_LOCALE` クッキーを `en` にすると英語表示になります
+（URL でロケールを分けない構成なので、外出先のタブレットでも同じURLのまま使えます）。
+切り替えの仕組みは [`src/i18n/request.ts`](src/i18n/request.ts) にあります。
 
-## ピンボールゲームのセットアップ
-## Pinball Game Getting Started
+## デプロイ
 
-First, install dependencies:
+Vercel に GitHub 連携でインポートすれば、設定はすべて自動検出されます。
+以後は `git push` するだけで公開URLが更新されます。
+手順は [`setup/tablet/TABLET.md`](setup/tablet/TABLET.md) を参照してください。
 
-```bash
-npm install
-```
+---
 
-Then run the development server:
+## 既知の未対応事項
 
-```bash
-npm run dev
-```
+- **駅データはサンプルです。** `src/lib/stations.ts` の内容は実データではありません。
+- **駅の写真が未配置です。** `src/lib/stations.ts` が参照している
+  `/images/stations/...` のファイルがまだ無いため、写真枠は空で表示されます。
+  `public/images/` に配置すると表示されます。
+- **地図は未実装です。** `src/components/MapShowcase.tsx` は Mapbox を入れる
+  想定の枠だけがあり、初期化処理はコメントのままです。
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the game.
+## `legacy/` について
 
-## Pinball Game Controls
+`legacy/portfolio/` には、以前この repo のルートに置かれていた
+**別プロジェクトのポートフォリオ雛形**（`app/` と `components/`）が入っています。
 
-- Left Arrow: Left flipper
-- Right Arrow: Right flipper
-- Space: Launch ball
-- F5: Reset score
-
-## Pinball Game Features
-
-- Neon-dark aesthetic with gradient background
-- Physics-based ball movement using Matter.js
-- Score tracking
-- Interactive flippers
-- Bumpers with high restitution
-- Responsive canvas
-
-## Deployment
-
-To deploy this project to Vercel:
-
-1. Push to GitHub
-2. Import to Vercel
-3. Connect your GitHub repository
-4. Deploy
+Next.js は `app/` と `src/app/` が同時に存在すると `app/` を優先するため、
+この雛形があると EKICHO 側のページが一切表示されない状態でした。
+削除はせず `legacy/` に退避し、ビルドと型チェックの対象から外してあります。
+不要だと判断できたらフォルダごと削除して構いません。
