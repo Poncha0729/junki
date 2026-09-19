@@ -258,12 +258,14 @@ Thunderbolt 4 なので、**ケーブル1本で映像・給電・有線LAN**が�
 メーカー独自アプリは**削除候補に含めず「要判断」として一覧表示**されます。
 以下を参考に判断してください。
 
-| アプリ | 判断 | 理由 |
+| アプリ（実機で出るパッケージ名） | 判断 | 理由 |
 |---|---|---|
-| **Lenovo Vantage / Commercial Vantage** | ✅ **残す** | BIOS・ドライバ更新の唯一の経路 |
+| **`E046963F.LenovoCompanion`**（Lenovo Vantage） | ✅ **残す** | BIOS・ドライバ更新の唯一の経路 |
 | **Lenovo Utility / Hotkeys** | ✅ **残す** | Fnキー・特殊キーが効かなくなる |
 | **ペン関連の設定アプリ** | ✅ **残す** | ペンが使えなくなる |
-| **Dolby Access / Dolby Audio** | ⚠️ 残す方が無難 | 音質調整。消すと音が変わることがある |
+| **`DolbyLaboratories.DolbyDigitalPlusDecoderOEM`** | ✅ **残す** | 音声デコーダー。消すと音が出なくなる可能性がある |
+| **`DolbyLaboratories.DolbyAccess`** | ⚠️ 残す方が無難 | Dolby Atmos の設定アプリ。この機種はAtmos対応スピーカー |
+| **`Microsoft.ZuneMusic`** | ⚠️ **残す方が無難** | 名前は Groove だが、**Windows 11 ではこれが「メディア プレーヤー」本体**。消すと標準の再生アプリが無くなる |
 | **Glance by Mirametrix**（視線追跡） | 🔸 使わないなら消してよい | 常駐して起動が遅くなる |
 | **Lenovo Now / 各種お試しアプリ** | 🔸 消してよい | 広告枠 |
 | **McAfee / Norton 体験版** | ✅ **消す** | Defender を無効化したまま期限切れになる。下記参照 |

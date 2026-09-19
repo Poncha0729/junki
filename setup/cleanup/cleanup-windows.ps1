@@ -48,8 +48,11 @@ $Candidates = @(
     @{ Match = 'Microsoft.MicrosoftSolitaireCollection'; Why = 'ゲーム' }
     @{ Match = 'Microsoft.MixedReality.Portal';          Why = 'VR用。ヘッドセットが無ければ不要' }
     @{ Match = 'Microsoft.SkypeApp';    Why = 'Skype（後継は Teams）' }
-    @{ Match = 'Microsoft.ZuneMusic';   Why = 'Groove ミュージック（後継なし）' }
-    @{ Match = 'Microsoft.ZuneVideo';   Why = '映画 & テレビ' }
+    # Windows 11 では ZuneMusic が「メディア プレーヤー」本体（Groove 時代の
+    # パッケージ名を引き継いでいる）。消すと標準の再生アプリが無くなるため、
+    # 理由欄で明示して利用者に判断させる。
+    @{ Match = 'Microsoft.ZuneMusic';   Why = '要注意: Windows 11 ではこれが「メディア プレーヤー」本体。消すと標準の音楽・動画再生アプリが無くなる' }
+    @{ Match = 'Microsoft.ZuneVideo';   Why = '要注意: 「映画 & テレビ」。消すと動画再生アプリが減る' }
     @{ Match = 'Microsoft.People';      Why = '連絡先アプリ（単体では使わない）' }
     @{ Match = 'Microsoft.3DBuilder';   Why = '3Dビルダー' }
     @{ Match = 'Microsoft.Print3D';     Why = '3Dプリント' }
