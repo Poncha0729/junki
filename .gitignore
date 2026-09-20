@@ -70,3 +70,6 @@ out/
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# ClipBridge の合言葉（PC ごとに違う。共有しない）
+tools/clipbridge/.token

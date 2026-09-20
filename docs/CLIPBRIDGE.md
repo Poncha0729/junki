@@ -22,14 +22,25 @@ iPhone でも Android でも同じように使えます。
 npm run clipbridge
 ```
 
-こう表示されます（アドレスと `?t=` の後ろは毎回変わります）。
+こう表示されます（アドレスと `?t=` の後ろは PC ごとに違います）。
 
 ```
   ClipBridge が起動しました
 
   PC で開く   : http://localhost:8787/?t=3f9a1c
   スマホで開く: http://192.168.1.23:8787/?t=3f9a1c
+              : http://x1yoga.local:8787/?t=3f9a1c
+
+  合言葉（?t=）: 3f9a1c  （tools/clipbridge/.token に保存。作り直すには --new-token）
 ```
+
+`?t=` の合言葉は初回起動時に作られ、`tools/clipbridge/.token` に保存されて
+次回以降も同じものが使われます。スマホのブックマークや iPhone のショートカットが
+起動のたびに壊れないようにするためです。このファイルは `.gitignore` 済みで、
+PC ごとに別のものになります。
+
+「スマホで開く」の2行目の `PC名.local` は、Wi-Fi ルータが IP アドレスを
+割り当て直しても変わらない URL です。ブックマークにはこちらを使ってください。
 
 Windows の場合、初回だけ「Windows セキュリティの重要な警告」（ファイアウォール）が
 出ます。**プライベート ネットワーク**にチェックを入れて「アクセスを許可する」を
@@ -48,6 +59,10 @@ Windows の場合、初回だけ「Windows セキュリティの重要な警告�
 QR が出ない（PC がオフライン）ときは、URL をそのまま打ち込んでください。
 
 これで両方の画面の右上が「● 接続中」になります。
+
+**iPhone の場合**は、共有シートや背面タップから使えるショートカットも作れます。
+ブラウザを開かずに「選んだ文字を PC へ」「PC でコピーした文字を iPhone へ」ができるので、
+毎回使うならこちらの方が楽です。手順は [`CLIPBRIDGE-IPHONE.md`](CLIPBRIDGE-IPHONE.md)。
 
 ### 4. 使う
 
@@ -91,7 +106,8 @@ iPhone ではこの ClipBridge の「送る → コピー」が現実的な落�
 | 環境変数 / 引数 | 内容 |
 |---|---|
 | `CLIPBRIDGE_PORT=8788` | ポートを変える（既定 8787） |
-| `CLIPBRIDGE_TOKEN=xxxx` | 合言葉を固定する。既定では起動のたびに変わる |
+| `CLIPBRIDGE_TOKEN=xxxx` | 合言葉を環境変数で指定する（`.token` より優先） |
+| `npm run clipbridge -- --new-token` | 保存されている合言葉を作り直す（URL を知られた気がするときなど） |
 | `npm run clipbridge -- --no-clipboard` | PC のクリップボードに触らない（画面に表示するだけ） |
 
 合言葉（URL の `?t=`）が無いと何もできないようにしてあります。
@@ -104,6 +120,10 @@ iPhone ではこの ClipBridge の「送る → コピー」が現実的な落�
   依存パッケージはありません。
 - `tools/clipbridge/index.html` — PC・スマホ共通の画面。1ファイル。
 - PC → 相手への通知は Server-Sent Events、相手 → PC は普通の POST。
+- iPhone のショートカット向けに、`GET /api/clipboard`（PC のクリップボードを
+  そのまま返す）と `GET /api/latest`（最後に届いた文字を返す）がある。
+  どちらも `text/plain` を返すので、ショートカット側で JSON を解く必要がない。
+  `POST /api/send` は `text/plain` の本文も受け付ける。
 - PC のクリップボードは OS 標準のコマンドで読み書きします。
   Windows は PowerShell の `Set-Clipboard` / `Get-Clipboard`（`clip.exe` は
   日本語が化けるので使いません）、macOS は `pbcopy` / `pbpaste`、

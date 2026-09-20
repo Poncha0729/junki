@@ -41,6 +41,7 @@ src/locales/        ja.json / en.json
 src/i18n/request.ts next-intl 設定
 docs/STATION-DATA.md 駅データの増やし方
 docs/CLIPBRIDGE.md  PC⇔スマホ 文字やり取りツールの使い方
+docs/CLIPBRIDGE-IPHONE.md  同ツールを iPhone のショートカットから使う手順
 tools/clipbridge/   PC⇔スマホ 文字やり取りツール（Node 標準モジュールのみ。Next.js とは独立）
 scripts/            アイコン生成など
 setup/              新PCセットアップ・2台運用のキット

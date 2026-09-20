@@ -71,6 +71,7 @@ scripts/
 docs/
   STATION-DATA.md         # 駅データの増やし方
   CLIPBRIDGE.md           # PC⇔スマホ 文字やり取りツールの使い方
+  CLIPBRIDGE-IPHONE.md    # 同ツールを iPhone のショートカットから使う手順
 tools/
   clipbridge/             # PC のキーボードでスマホに入力 / スマホから PC へコピペ（依存なし）
 setup/                    # 新PCセットアップ・2台運用のキット

@@ -14,8 +14,8 @@
 // 詳しくは docs/CLIPBRIDGE.md。
 
 import http from 'node:http';
-import { readFile } from 'node:fs/promises';
-import { networkInterfaces } from 'node:os';
+import { readFile, writeFile } from 'node:fs/promises';
+import { networkInterfaces, hostname } from 'node:os';
 import { randomBytes, timingSafeEqual } from 'node:crypto';
 import { spawn } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
@@ -24,11 +24,28 @@ import path from 'node:path';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const PORT = Number(process.env.CLIPBRIDGE_PORT || 8787);
-// 起動ごとにランダムな合言葉を作る。同じ Wi-Fi にいる他人が勝手に
-// PC のクリップボードへ書き込めないようにするため。固定したいときは
-// CLIPBRIDGE_TOKEN を設定する。
-const TOKEN = (process.env.CLIPBRIDGE_TOKEN || randomBytes(3).toString('hex')).trim();
 const NO_CLIPBOARD = process.argv.includes('--no-clipboard');
+const TOKEN_FILE = path.join(__dirname, '.token');
+
+// 合言葉（URL の ?t=）。同じ Wi-Fi にいる他人が勝手に PC のクリップボードへ
+// 書き込めないようにするためのもの。
+//   - CLIPBRIDGE_TOKEN があればそれを使う
+//   - 無ければ初回にランダムに作って tools/clipbridge/.token に保存し、次回以降も同じものを使う
+//     （iPhone のショートカットやホーム画面のブックマークが起動のたびに壊れないように）
+//   - --new-token を付けて起動すると作り直す
+async function loadToken() {
+  if (process.env.CLIPBRIDGE_TOKEN) return process.env.CLIPBRIDGE_TOKEN.trim();
+  if (!process.argv.includes('--new-token')) {
+    try {
+      const saved = (await readFile(TOKEN_FILE, 'utf8')).trim();
+      if (/^[A-Za-z0-9_-]{4,64}$/.test(saved)) return saved;
+    } catch {}
+  }
+  const fresh = randomBytes(3).toString('hex');
+  await writeFile(TOKEN_FILE, fresh + '\n', 'utf8');
+  return fresh;
+}
+const TOKEN = await loadToken();
 const MAX_HISTORY = 50;
 const MAX_TEXT_BYTES = 200_000;
 
@@ -130,6 +147,13 @@ function addItem(text, from, extra = {}) {
   return item;
 }
 
+function latestItem(from) {
+  for (let i = history.length - 1; i >= 0; i--) {
+    if (!from || history[i].from === from) return history[i];
+  }
+  return null;
+}
+
 function broadcast(event) {
   const payload = `data: ${JSON.stringify(event)}\n\n`;
   for (const res of sseClients) res.write(payload);
@@ -157,6 +181,24 @@ function lanAddresses() {
   return out.map((a) => a.address);
 }
 
+// スマホから開く URL の候補。IP アドレスの後に「PC名.local」も出す。
+// Windows 10 以降と iPhone はどちらも mDNS に対応しているので、
+// Wi-Fi ルータが IP を割り当て直しても .local の方は変わらない。
+function phoneUrls() {
+  const urls = lanAddresses().map((ip) => `http://${ip}:${PORT}/?t=${TOKEN}`);
+  const name = hostname().toLowerCase().replace(/\.local$/, '');
+  if (name && name !== 'localhost') urls.push(`http://${name}.local:${PORT}/?t=${TOKEN}`);
+  return urls;
+}
+
+function text(res, status, body) {
+  res.writeHead(status, {
+    'Content-Type': 'text/plain; charset=utf-8',
+    'Cache-Control': 'no-store',
+  });
+  res.end(body);
+}
+
 function tokenOk(req, url) {
   const given = req.headers['x-token'] || url.searchParams.get('t') || '';
   const a = Buffer.from(String(given));
@@ -164,7 +206,9 @@ function tokenOk(req, url) {
   return a.length === b.length && timingSafeEqual(a, b);
 }
 
-function readJson(req) {
+// JSON でも text/plain でも受け取る。text/plain のときは { text } に包む
+// （iPhone のショートカットからは text/plain の方が組みやすい）。
+function readBody(req) {
   return new Promise((resolve, reject) => {
     const chunks = [];
     let size = 0;
@@ -178,8 +222,14 @@ function readJson(req) {
       chunks.push(c);
     });
     req.on('end', () => {
+      const raw = Buffer.concat(chunks).toString('utf8');
+      const type = String(req.headers['content-type'] || '');
+      if (!type.includes('json')) {
+        resolve({ text: raw });
+        return;
+      }
       try {
-        resolve(chunks.length ? JSON.parse(Buffer.concat(chunks).toString('utf8')) : {});
+        resolve(raw ? JSON.parse(raw) : {});
       } catch (err) {
         reject(err);
       }
@@ -209,8 +259,8 @@ const DENIED_PAGE = `<!doctype html><html lang="ja"><meta charset="utf-8">
 <title>ClipBridge</title>
 <body style="font-family:system-ui,sans-serif;padding:24px;line-height:1.7">
 <h1 style="font-size:20px">この URL では開けません</h1>
-<p>ClipBridge は起動するたびに合言葉が変わります。<br>
-PC のターミナルに表示されている URL（<code>?t=</code> 付き）を、そのままスマホで開いてください。</p>
+<p>合言葉（URL の <code>?t=</code>）が無いか、違っています。<br>
+PC のターミナルに表示されている URL を、そのままスマホで開いてください。</p>
 </body></html>`;
 
 const server = http.createServer(async (req, res) => {
@@ -239,7 +289,7 @@ const server = http.createServer(async (req, res) => {
           history,
           platform: process.platform,
           clipboard: !NO_CLIPBOARD,
-          urls: lanAddresses().map((ip) => `http://${ip}:${PORT}/?t=${TOKEN}`),
+          urls: phoneUrls(),
         })}\n\n`,
       );
       sseClients.add(res);
@@ -247,10 +297,30 @@ const server = http.createServer(async (req, res) => {
       return;
     }
 
+    // ---- iPhone ショートカット向け（GET で text/plain を返す） ----
+    // PC のクリップボードの中身をそのまま返す（履歴にも残す）
+    if (req.method === 'GET' && url.pathname === '/api/clipboard') {
+      if (NO_CLIPBOARD) return text(res, 400, '');
+      try {
+        const clip = await readPcClipboard();
+        if (clip) addItem(clip, 'pc', { pulled: true });
+        return text(res, 200, clip || '');
+      } catch (err) {
+        console.warn(`[clipbridge] PC のクリップボードを読めませんでした: ${err.message}`);
+        return text(res, 500, '');
+      }
+    }
+    // 最後に「送る」で届いた文字を返す。?from=pc で PC から送ったものに限定
+    if (req.method === 'GET' && url.pathname === '/api/latest') {
+      const from = url.searchParams.get('from');
+      const item = latestItem(from === 'pc' || from === 'phone' ? from : undefined);
+      return text(res, 200, item ? item.text : '');
+    }
+
     if (req.method !== 'POST') return json(res, 405, { error: 'method not allowed' });
 
     if (url.pathname === '/api/send') {
-      const body = await readJson(req);
+      const body = await readBody(req);
       const text = typeof body.text === 'string' ? body.text : '';
       const from = body.from === 'pc' ? 'pc' : 'phone';
       if (!text) return json(res, 400, { error: 'empty' });
@@ -272,7 +342,7 @@ const server = http.createServer(async (req, res) => {
     }
 
     if (url.pathname === '/api/live') {
-      const body = await readJson(req);
+      const body = await readBody(req);
       const text = typeof body.text === 'string' ? body.text : '';
       if (Buffer.byteLength(text) > MAX_TEXT_BYTES) return json(res, 413, { error: 'too large' });
       broadcast({ type: 'live', text, from: body.from === 'pc' ? 'pc' : 'phone' });
@@ -307,21 +377,23 @@ const server = http.createServer(async (req, res) => {
 });
 
 server.listen(PORT, '0.0.0.0', () => {
-  const lan = lanAddresses();
+  const urls = phoneUrls();
   console.log('');
   console.log('  ClipBridge が起動しました');
   console.log('');
   console.log(`  PC で開く   : http://localhost:${PORT}/?t=${TOKEN}`);
-  if (lan.length === 0) {
+  if (urls.length === 0) {
     console.log('  スマホで開く: （LAN の IPv4 アドレスが見つかりません。Wi-Fi に接続していますか？）');
   } else {
-    for (const [i, ip] of lan.entries()) {
-      console.log(`  ${i === 0 ? 'スマホで開く' : '            '}: http://${ip}:${PORT}/?t=${TOKEN}`);
+    for (const [i, u] of urls.entries()) {
+      console.log(`  ${i === 0 ? 'スマホで開く' : '            '}: ${u}`);
     }
   }
   console.log('');
+  console.log(`  合言葉（?t=）: ${TOKEN}  ${process.env.CLIPBRIDGE_TOKEN ? '（CLIPBRIDGE_TOKEN で指定）' : '（tools/clipbridge/.token に保存。作り直すには --new-token）'}`);
   console.log('  ・スマホは PC と同じ Wi-Fi につないでください');
   console.log('  ・PC で開いたページに QR コードが出るので、それを読み取ると早いです');
+  console.log('  ・iPhone のショートカットから使う手順は docs/CLIPBRIDGE-IPHONE.md');
   console.log(`  ・PC のクリップボード連携: ${NO_CLIPBOARD ? 'オフ（--no-clipboard）' : 'オン'}`);
   console.log('  ・終了は Ctrl+C');
   console.log('');
