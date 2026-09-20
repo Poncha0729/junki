@@ -10,7 +10,8 @@
     "start:lan": "next start -H 0.0.0.0 -p 3000",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
-    "verify": "npm run typecheck && npm run lint && npm run build"
+    "verify": "npm run typecheck && npm run lint && npm run build",
+    "clipbridge": "node tools/clipbridge/server.mjs"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",

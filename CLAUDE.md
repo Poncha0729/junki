@@ -18,6 +18,7 @@ npm run dev:lan    # 同一Wi-Fi内の端末からも見える形で起動（タ
 npm run typecheck  # tsc --noEmit
 npm run lint       # next lint
 npm run verify     # typecheck → lint → build。★push 前に必ず実行する
+npm run clipbridge # PC⇔スマホ 文字やり取りツール（docs/CLIPBRIDGE.md）
 npm run build      # 本番ビルド
 ```
 
@@ -39,6 +40,8 @@ src/lib/stations.ts 駅データ + 検索ロジック
 src/locales/        ja.json / en.json
 src/i18n/request.ts next-intl 設定
 docs/STATION-DATA.md 駅データの増やし方
+docs/CLIPBRIDGE.md  PC⇔スマホ 文字やり取りツールの使い方
+tools/clipbridge/   PC⇔スマホ 文字やり取りツール（Node 標準モジュールのみ。Next.js とは独立）
 scripts/            アイコン生成など
 setup/              新PCセットアップ・2台運用のキット
 legacy/             使っていない旧コード。ビルド対象外

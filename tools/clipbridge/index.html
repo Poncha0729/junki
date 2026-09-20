@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>ClipBridge</title>
+<style>
+  :root {
+    --bg: #f4f5f7; --card: #ffffff; --text: #1a1d21; --muted: #6b7280;
+    --line: #e2e5ea; --accent: #2563eb; --accent-text: #ffffff;
+    --ok: #16a34a; --warn: #d97706; --bad: #dc2626;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #101215; --card: #1a1d22; --text: #e8eaed; --muted: #9aa1ab;
+      --line: #2a2f37; --accent: #3b82f6;
+    }
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--text);
+    font-family: system-ui, -apple-system, "Segoe UI", "Hiragino Sans", "Noto Sans JP", sans-serif;
+    -webkit-tap-highlight-color: transparent; }
+  header { display: flex; align-items: center; gap: 10px; padding: 12px 16px;
+    padding-top: max(12px, env(safe-area-inset-top)); background: var(--card);
+    border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 2; }
+  .brand { font-weight: 700; font-size: 17px; }
+  .status { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--muted); margin-left: auto; }
+  .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--muted); }
+  .dot.ok { background: var(--ok); } .dot.warn { background: var(--warn); } .dot.bad { background: var(--bad); }
+  .role { font-size: 12px; padding: 2px 8px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); }
+  main { padding: 12px 16px 40px; max-width: 720px; margin: 0 auto; display: grid; gap: 12px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 14px; }
+  .cardHead { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  h2 { font-size: 14px; margin: 0 0 8px; color: var(--muted); font-weight: 600; letter-spacing: .02em; }
+  .cardHead h2 { margin: 0; }
+  textarea { width: 100%; min-height: 120px; resize: vertical; font: inherit; font-size: 16px; line-height: 1.5;
+    padding: 10px 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--bg); color: var(--text); }
+  textarea:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
+  textarea[readonly] { background: transparent; }
+  .row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 10px; }
+  button { font: inherit; font-size: 15px; padding: 10px 16px; border-radius: 10px; border: 1px solid var(--line);
+    background: var(--card); color: var(--text); cursor: pointer; }
+  button:active { transform: translateY(1px); }
+  button.primary { background: var(--accent); color: var(--accent-text); border-color: var(--accent); }
+  button.small { font-size: 13px; padding: 6px 10px; margin-left: auto; }
+  button:disabled { opacity: .5; cursor: default; }
+  .check { display: flex; align-items: center; gap: 6px; font-size: 14px; color: var(--muted); }
+  .hint { font-size: 13px; color: var(--muted); margin: 8px 0 0; min-height: 1.2em; }
+  .hint.warn { color: var(--warn); } .hint.ok { color: var(--ok); }
+  .badge { font-size: 12px; padding: 2px 8px; border-radius: 999px; background: var(--accent); color: var(--accent-text); margin-left: auto; }
+  ul { list-style: none; margin: 0; padding: 0; }
+  li { border-top: 1px solid var(--line); padding: 10px 0; }
+  li:first-child { border-top: 0; padding-top: 0; }
+  .meta { font-size: 12px; color: var(--muted); display: flex; gap: 8px; }
+  .preview { white-space: pre-wrap; word-break: break-word; font-size: 14px; margin: 4px 0 6px; max-height: 4.5em; overflow: hidden; }
+  .actions { display: flex; gap: 6px; }
+  .actions button { font-size: 13px; padding: 6px 10px; }
+  #qr { display: flex; justify-content: center; margin: 8px 0; }
+  #qr canvas { background: #fff; padding: 8px; border-radius: 8px; }
+  #urls { font-size: 14px; word-break: break-all; }
+  #urls a { color: var(--accent); }
+  .empty { color: var(--muted); font-size: 14px; }
+  .toast { position: fixed; left: 50%; bottom: max(24px, env(safe-area-inset-bottom)); transform: translateX(-50%);
+    background: var(--text); color: var(--bg); padding: 10px 16px; border-radius: 999px; font-size: 14px;
+    box-shadow: 0 6px 20px rgba(0,0,0,.25); z-index: 3; max-width: calc(100vw - 32px); }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">ClipBridge</div>
+  <div class="role" id="roleBadge"></div>
+  <div class="status"><span id="dot" class="dot"></span><span id="statusText">接続中…</span></div>
+</header>
+
+<main>
+  <section class="card" id="connectPanel" hidden>
+    <h2>スマホをつなぐ</h2>
+    <p style="margin:0 0 8px;font-size:14px">スマホを PC と同じ Wi-Fi につないで、この QR コードを読み取ってください。</p>
+    <div id="qr"></div>
+    <div id="urls"></div>
+  </section>
+
+  <section class="card">
+    <h2 id="sendTitle"></h2>
+    <textarea id="input"></textarea>
+    <div class="row">
+      <label class="check"><input type="checkbox" id="liveToggle"> 入力中の文字を相手の画面にそのまま映す</label>
+    </div>
+    <div class="row">
+      <button id="sendBtn" class="primary">送る</button>
+      <button id="clearInputBtn">消す</button>
+    </div>
+    <p class="hint" id="sendHint"></p>
+  </section>
+
+  <section class="card">
+    <div class="cardHead">
+      <h2 id="recvTitle"></h2>
+      <span id="liveBadge" class="badge" hidden>相手が入力中…</span>
+    </div>
+    <textarea id="incoming" readonly placeholder="まだ何も届いていません"></textarea>
+    <div class="row">
+      <button id="copyBtn" class="primary">コピー</button>
+      <button id="pullBtn" hidden>PC のクリップボードを取り込む</button>
+    </div>
+    <p class="hint" id="copyHint"></p>
+  </section>
+
+  <section class="card">
+    <div class="cardHead">
+      <h2>履歴</h2>
+      <button id="clearHistoryBtn" class="small">全部消す</button>
+    </div>
+    <ul id="history"></ul>
+  </section>
+</main>
+
+<div id="toast" class="toast" hidden></div>
+
+<script>
+(() => {
+  const $ = (id) => document.getElementById(id);
+  const params = new URLSearchParams(location.search);
+  const TOKEN = params.get('t') || '';
+  const host = location.hostname;
+  const roleParam = params.get('role');
+  const ME = roleParam === 'phone' || roleParam === 'pc'
+    ? roleParam
+    : (host === 'localhost' || host === '127.0.0.1' || host === '[::1]' ? 'pc' : 'phone');
+  const OTHER = ME === 'pc' ? 'phone' : 'pc';
+  const label = { pc: 'PC', phone: 'スマホ' };
+
+  $('roleBadge').textContent = `この端末: ${label[ME]}`;
+  $('sendTitle').textContent = ME === 'pc' ? 'スマホへ送る' : 'PC へ送る';
+  $('recvTitle').textContent = ME === 'pc' ? 'スマホから届いた文字' : 'PC から届いた文字';
+  $('input').placeholder = ME === 'pc'
+    ? 'ここに PC のキーボードで入力すると、スマホの画面に映ります'
+    : 'ここに入力して「送る」を押すと、PC のクリップボードに入ります';
+  $('sendHint').textContent = ME === 'pc'
+    ? 'Ctrl+Enter（Mac は ⌘+Enter）でも送れます'
+    : '送った文字は PC 側で Ctrl+V するだけで貼り付けられます';
+  $('liveToggle').checked = ME === 'pc';
+  if (ME === 'pc') $('connectPanel').hidden = false;
+
+  let clipboardEnabled = true;
+  let lastReceived = null;   // 相手から最後に「送る」で届いたもの
+  let liveShowing = false;   // 受信欄に相手の入力中テキストを映している最中か
+
+  // ---- 接続（Server-Sent Events） ---------------------------------------
+  const dot = $('dot');
+  const statusText = $('statusText');
+  function setStatus(kind, text) { dot.className = 'dot ' + kind; statusText.textContent = text; }
+
+  if (!TOKEN) {
+    setStatus('bad', '合言葉がありません');
+    toast('ターミナルに表示された URL（?t= 付き）で開いてください', 6000);
+  }
+
+  const es = new EventSource(`/api/events?t=${encodeURIComponent(TOKEN)}`);
+  es.onopen = () => setStatus('ok', '接続中');
+  es.onerror = () => setStatus('warn', '再接続中…');
+  es.onmessage = (e) => {
+    let ev;
+    try { ev = JSON.parse(e.data); } catch { return; }
+    if (ev.type === 'hello') {
+      clipboardEnabled = !!ev.clipboard;
+      $('pullBtn').hidden = !(ME === 'phone' && clipboardEnabled);
+      renderHistory(ev.history || []);
+      if (ME === 'pc') showConnect(ev.urls || []);
+      const latest = (ev.history || []).filter((i) => i.from === OTHER).pop();
+      if (latest && !$('incoming').value) showIncoming(latest);
+    } else if (ev.type === 'item') {
+      pushHistory(ev.item);
+      if (ev.item.from === OTHER) {
+        showIncoming(ev.item);
+        $('liveBadge').hidden = true;
+        toast(ev.item.pulled ? 'PC のクリップボードを取り込みました' : `${label[OTHER]}から届きました`);
+      } else if (ev.item.from === ME && ev.item.pulled && ME === 'pc') {
+        // スマホ側の操作で PC のクリップボードが読まれた
+        toast('スマホが PC のクリップボードを取り込みました');
+      }
+    } else if (ev.type === 'live') {
+      if (ev.from !== OTHER) return;
+      if (ev.text) {
+        liveShowing = true;
+        $('incoming').value = ev.text;
+        $('liveBadge').hidden = false;
+        $('copyHint').textContent = '';
+        $('copyHint').className = 'hint';
+      } else if (liveShowing) {
+        // 相手が入力欄を空にした（送信後など）。直前に届いた文字に戻す
+        liveShowing = false;
+        $('liveBadge').hidden = true;
+        if (lastReceived) showIncoming(lastReceived); else $('incoming').value = '';
+      }
+    } else if (ev.type === 'clear') {
+      renderHistory([]);
+    }
+  };
+
+  // ---- 送信 ------------------------------------------------------------
+  async function api(path, body) {
+    const res = await fetch(path, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-Token': TOKEN },
+      body: JSON.stringify(body || {}),
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) throw new Error(data.error || `HTTP ${res.status}`);
+    return data;
+  }
+
+  const input = $('input');
+  let liveTimer = null;
+  let lastLive = '';
+  function scheduleLive() {
+    if (!$('liveToggle').checked) return;
+    clearTimeout(liveTimer);
+    liveTimer = setTimeout(() => {
+      const text = input.value;
+      if (text === lastLive) return;
+      lastLive = text;
+      api('/api/live', { text, from: ME }).catch(() => {});
+    }, 120);
+  }
+  input.addEventListener('input', scheduleLive);
+  $('liveToggle').addEventListener('change', () => {
+    if ($('liveToggle').checked) scheduleLive();
+    else { lastLive = ''; api('/api/live', { text: '', from: ME }).catch(() => {}); }
+  });
+
+  async function send() {
+    const text = input.value;
+    if (!text) { toast('文字を入力してください'); return; }
+    $('sendBtn').disabled = true;
+    try {
+      const r = await api('/api/send', { text, from: ME });
+      input.value = '';
+      clearTimeout(liveTimer);
+      lastLive = '';
+      api('/api/live', { text: '', from: ME }).catch(() => {});
+      if (ME === 'phone') {
+        if (r.clipboardError) toast('送りましたが PC のクリップボードには入りませんでした。PC 側で「コピー」を押してください', 6000);
+        else if (clipboardEnabled) toast('PC のクリップボードに入れました。PC で Ctrl+V してください', 4000);
+        else toast('PC に送りました');
+      } else {
+        toast('スマホに送りました。スマホ側で「コピー」を押してください', 4000);
+      }
+    } catch (err) {
+      toast(`送れませんでした: ${err.message}`, 5000);
+    } finally {
+      $('sendBtn').disabled = false;
+      input.focus();
+    }
+  }
+  $('sendBtn').addEventListener('click', send);
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) { e.preventDefault(); send(); }
+  });
+  $('clearInputBtn').addEventListener('click', () => {
+    input.value = '';
+    lastLive = '';
+    api('/api/live', { text: '', from: ME }).catch(() => {});
+    input.focus();
+  });
+
+  // ---- 受信 ------------------------------------------------------------
+  function showIncoming(item) {
+    lastReceived = item;
+    liveShowing = false;
+    $('incoming').value = item.text;
+    const hint = $('copyHint');
+    if (ME === 'pc' && item.from === 'phone') {
+      if (item.copiedToPc) { hint.textContent = 'PC のクリップボードに入っています。そのまま Ctrl+V で貼り付けられます'; hint.className = 'hint ok'; }
+      else { hint.textContent = 'クリップボードには入っていません。「コピー」を押してください'; hint.className = 'hint warn'; }
+    } else {
+      hint.textContent = ''; hint.className = 'hint';
+    }
+  }
+
+  $('copyBtn').addEventListener('click', async () => {
+    const text = $('incoming').value;
+    if (!text) { toast('コピーする文字がありません'); return; }
+    if (await copyText(text)) toast('コピーしました');
+    else {
+      toast('自動でコピーできませんでした。文字を長押しして選択→コピーしてください', 6000);
+      const ta = $('incoming'); ta.focus(); ta.setSelectionRange(0, ta.value.length);
+    }
+  });
+
+  $('pullBtn').addEventListener('click', async () => {
+    $('pullBtn').disabled = true;
+    try {
+      const r = await api('/api/pull');
+      if (r.empty) toast('PC のクリップボードは空です（文字以外はコピーできません）', 4000);
+    } catch (err) {
+      toast(`取り込めませんでした: ${err.message}`, 5000);
+    } finally {
+      $('pullBtn').disabled = false;
+    }
+  });
+
+  $('clearHistoryBtn').addEventListener('click', () => {
+    if (confirm('履歴を全部消しますか？（PC・スマホ両方から消えます）')) api('/api/clear').catch(() => {});
+  });
+
+  // ---- 履歴 ------------------------------------------------------------
+  let items = [];
+  function renderHistory(list) {
+    items = list.slice();
+    const ul = $('history');
+    ul.innerHTML = '';
+    if (items.length === 0) {
+      const li = document.createElement('li');
+      li.className = 'empty';
+      li.textContent = 'まだ何もありません';
+      ul.appendChild(li);
+      return;
+    }
+    for (const item of items.slice().reverse()) ul.appendChild(renderItem(item));
+  }
+  function pushHistory(item) {
+    if (items.some((i) => i.id === item.id)) return;
+    items.push(item);
+    while (items.length > 50) items.shift();
+    const ul = $('history');
+    const empty = ul.querySelector('.empty');
+    if (empty) empty.remove();
+    ul.insertBefore(renderItem(item), ul.firstChild);
+    while (ul.children.length > 50) ul.removeChild(ul.lastChild);
+  }
+  function renderItem(item) {
+    const li = document.createElement('li');
+    const meta = document.createElement('div');
+    meta.className = 'meta';
+    const who = item.pulled ? 'PC のクリップボード' : `${label[item.from]}から`;
+    meta.textContent = `${who} ・ ${new Date(item.at).toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit' })}`;
+    const pre = document.createElement('div');
+    pre.className = 'preview';
+    pre.textContent = item.text;
+    const actions = document.createElement('div');
+    actions.className = 'actions';
+    const copy = document.createElement('button');
+    copy.textContent = 'コピー';
+    copy.addEventListener('click', async () => {
+      if (await copyText(item.text)) toast('コピーしました');
+      else { showIncoming(item); toast('自動でコピーできませんでした。上の欄で長押し→コピーしてください', 6000); }
+    });
+    const show = document.createElement('button');
+    show.textContent = '上に表示';
+    show.addEventListener('click', () => { showIncoming(item); window.scrollTo({ top: 0, behavior: 'smooth' }); });
+    actions.append(copy, show);
+    li.append(meta, pre, actions);
+    return li;
+  }
+
+  // ---- クリップボード（http の LAN では navigator.clipboard が使えないので旧方式も） ----
+  async function copyText(text) {
+    try {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(text);
+        return true;
+      }
+    } catch {}
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.setAttribute('readonly', '');
+    Object.assign(ta.style, { position: 'fixed', top: '0', left: '0', opacity: '0', fontSize: '16px' });
+    document.body.appendChild(ta);
+    // iOS Safari は readonly だと選択できないので一時的に外す
+    ta.readOnly = false;
+    ta.contentEditable = 'true';
+    const range = document.createRange();
+    range.selectNodeContents(ta);
+    const sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+    ta.setSelectionRange(0, text.length);
+    let ok = false;
+    try { ok = document.execCommand('copy'); } catch {}
+    sel.removeAllRanges();
+    document.body.removeChild(ta);
+    return ok;
+  }
+
+  // ---- PC 側: QR コードと URL ------------------------------------------
+  function showConnect(urls) {
+    const box = $('urls');
+    box.innerHTML = '';
+    if (urls.length === 0) {
+      box.textContent = 'LAN のアドレスが見つかりません。PC が Wi-Fi か有線 LAN につながっているか確認してください。';
+      return;
+    }
+    for (const u of urls) {
+      const p = document.createElement('div');
+      const a = document.createElement('a');
+      a.href = u; a.textContent = u; a.target = '_blank';
+      p.appendChild(a);
+      box.appendChild(p);
+    }
+    const s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/qrcode@1/build/qrcode.min.js';
+    s.onload = () => {
+      const canvas = document.createElement('canvas');
+      $('qr').replaceChildren(canvas);
+      window.QRCode.toCanvas(canvas, urls[0], { width: 220, margin: 1 }, (err) => {
+        if (err) $('qr').textContent = '';
+      });
+    };
+    s.onerror = () => { $('qr').innerHTML = '<span class="empty">QR コードを表示できません（オフライン）。下の URL をスマホで直接入力してください。</span>'; };
+    document.head.appendChild(s);
+  }
+
+  // ---- 小物 ------------------------------------------------------------
+  let toastTimer = null;
+  function toast(msg, ms = 2500) {
+    const el = $('toast');
+    el.textContent = msg;
+    el.hidden = false;
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => { el.hidden = true; }, ms);
+  }
+})();
+</script>
+</body>
+</html>
