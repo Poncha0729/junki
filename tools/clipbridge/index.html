@@ -230,9 +230,12 @@
     else { lastLive = ''; api('/api/live', { text: '', from: ME }).catch(() => {}); }
   });
 
+  let sending = false;
   async function send() {
+    if (sending) return; // Ctrl+Enter 連打などでの二重送信を防ぐ
     const text = input.value;
     if (!text) { toast('文字を入力してください'); return; }
+    sending = true;
     $('sendBtn').disabled = true;
     try {
       const r = await api('/api/send', { text, from: ME });
@@ -250,6 +253,7 @@
     } catch (err) {
       toast(`送れませんでした: ${err.message}`, 5000);
     } finally {
+      sending = false;
       $('sendBtn').disabled = false;
       input.focus();
     }
@@ -400,7 +404,7 @@
       box.appendChild(p);
     }
     const s = document.createElement('script');
-    s.src = 'https://cdn.jsdelivr.net/npm/qrcode@1/build/qrcode.min.js';
+    s.src = '/vendor/qrcode.min.js';
     s.onload = () => {
       const canvas = document.createElement('canvas');
       $('qr').replaceChildren(canvas);
@@ -408,7 +412,7 @@
         if (err) $('qr').textContent = '';
       });
     };
-    s.onerror = () => { $('qr').innerHTML = '<span class="empty">QR コードを表示できません（オフライン）。下の URL をスマホで直接入力してください。</span>'; };
+    s.onerror = () => { $('qr').innerHTML = '<span class="empty">QR コードを表示できません。下の URL をスマホで直接入力してください。</span>'; };
     document.head.appendChild(s);
   }
 

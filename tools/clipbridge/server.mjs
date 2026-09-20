@@ -41,7 +41,8 @@ async function loadToken() {
       if (/^[A-Za-z0-9_-]{4,64}$/.test(saved)) return saved;
     } catch {}
   }
-  const fresh = randomBytes(3).toString('hex');
+  // 64 ビット。同じ Wi-Fi からの総当たりが現実的でない長さ（QR / ブックマーク経由で使うので手打ちは想定しない）
+  const fresh = randomBytes(8).toString('hex');
   await writeFile(TOKEN_FILE, fresh + '\n', 'utf8');
   return fresh;
 }
@@ -206,6 +207,10 @@ function tokenOk(req, url) {
   return a.length === b.length && timingSafeEqual(a, b);
 }
 
+// 合言葉が違うときは少し待ってから返す（総当たりを遅くする）
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+const BAD_TOKEN_DELAY_MS = 300;
+
 // JSON でも text/plain でも受け取る。text/plain のときは { text } に包む
 // （iPhone のショートカットからは text/plain の方が組みやすい）。
 function readBody(req) {
@@ -264,17 +269,38 @@ PC のターミナルに表示されている URL を、そのままスマホで
 </body></html>`;
 
 const server = http.createServer(async (req, res) => {
-  const url = new URL(req.url, 'http://localhost');
+  let url;
+  try {
+    url = new URL(req.url, 'http://localhost');
+  } catch {
+    return json(res, 400, { error: 'bad request' });
+  }
 
   try {
     if (req.method === 'GET' && (url.pathname === '/' || url.pathname === '/index.html')) {
-      if (!tokenOk(req, url)) return html(res, 403, DENIED_PAGE);
+      if (!tokenOk(req, url)) {
+        await sleep(BAD_TOKEN_DELAY_MS);
+        return html(res, 403, DENIED_PAGE);
+      }
       const page = await readFile(path.join(__dirname, 'index.html'), 'utf8');
       return html(res, 200, page);
     }
 
+    // QR 生成ライブラリ（同梱。CDN に頼らない）
+    if (req.method === 'GET' && url.pathname === '/vendor/qrcode.min.js') {
+      const js = await readFile(path.join(__dirname, 'vendor', 'qrcode.min.js'));
+      res.writeHead(200, {
+        'Content-Type': 'application/javascript; charset=utf-8',
+        'Cache-Control': 'public, max-age=86400',
+      });
+      return res.end(js);
+    }
+
     if (!url.pathname.startsWith('/api/')) return json(res, 404, { error: 'not found' });
-    if (!tokenOk(req, url)) return json(res, 403, { error: 'bad token' });
+    if (!tokenOk(req, url)) {
+      await sleep(BAD_TOKEN_DELAY_MS);
+      return json(res, 403, { error: 'bad token' });
+    }
 
     if (req.method === 'GET' && url.pathname === '/api/events') {
       res.writeHead(200, {

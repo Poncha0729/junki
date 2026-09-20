@@ -27,11 +27,11 @@ npm run clipbridge
 ```
   ClipBridge が起動しました
 
-  PC で開く   : http://localhost:8787/?t=3f9a1c
-  スマホで開く: http://192.168.1.23:8787/?t=3f9a1c
-              : http://x1yoga.local:8787/?t=3f9a1c
+  PC で開く   : http://localhost:8787/?t=3f9a1c7e2b904d15
+  スマホで開く: http://192.168.1.23:8787/?t=3f9a1c7e2b904d15
+              : http://x1yoga.local:8787/?t=3f9a1c7e2b904d15
 
-  合言葉（?t=）: 3f9a1c  （tools/clipbridge/.token に保存。作り直すには --new-token）
+  合言葉（?t=）: 3f9a1c7e2b904d15  （tools/clipbridge/.token に保存。作り直すには --new-token）
 ```
 
 `?t=` の合言葉は初回起動時に作られ、`tools/clipbridge/.token` に保存されて
@@ -112,13 +112,18 @@ iPhone ではこの ClipBridge の「送る → コピー」が現実的な落�
 
 合言葉（URL の `?t=`）が無いと何もできないようにしてあります。
 同じ Wi-Fi にいる他人が勝手に PC のクリップボードへ書き込めないようにするためです。
-公共の Wi-Fi では、合言葉入りの URL を人に見せないでください。
+合言葉は 64 ビットのランダム値で、外れたときは応答を少し遅らせているので、
+同じ Wi-Fi からの総当たりは現実的ではありません。
+それでも、公共の Wi-Fi では合言葉入りの URL を人に見せないでください。
 
 ## 仕組み
 
 - `tools/clipbridge/server.mjs` — Node.js 標準モジュールだけで書いた HTTP サーバ。
   依存パッケージはありません。
 - `tools/clipbridge/index.html` — PC・スマホ共通の画面。1ファイル。
+- `tools/clipbridge/vendor/qrcode.min.js` — QR コード生成ライブラリ（node-qrcode、MIT）を同梱。
+  CDN から読まないので、PC がオフラインでも QR が出るし、外部のスクリプトを
+  合言葉入りのページで実行することもない。
 - PC → 相手への通知は Server-Sent Events、相手 → PC は普通の POST。
 - iPhone のショートカット向けに、`GET /api/clipboard`（PC のクリップボードを
   そのまま返す）と `GET /api/latest`（最後に届いた文字を返す）がある。
