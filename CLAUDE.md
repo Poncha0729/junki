@@ -39,6 +39,7 @@ src/lib/stations.ts 駅データ + 検索ロジック
 src/locales/        ja.json / en.json
 src/i18n/request.ts next-intl 設定
 docs/STATION-DATA.md 駅データの増やし方
+docs/founders-playbook.md 経営者の思考と戦略（読み物。アプリのビルドとは無関係）
 scripts/            アイコン生成など
 setup/              新PCセットアップ・2台運用のキット
 legacy/             使っていない旧コード。ビルド対象外
