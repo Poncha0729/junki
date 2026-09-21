@@ -40,6 +40,7 @@ npm run dev
 | `npm run lint` | ESLint |
 | `npm run typecheck` | TypeScript の型チェック |
 | `npm run verify` | **typecheck → lint → build を通しで実行。push 前に必ずこれ** |
+| `npm run clipbridge` | PC とスマホで文字をやり取りするツールを起動（[`docs/CLIPBRIDGE.md`](docs/CLIPBRIDGE.md)） |
 
 ## プロジェクト構造
 
@@ -69,6 +70,10 @@ scripts/
   generate-icons.py       # アイコン生成（標準ライブラリのみ・依存なし）
 docs/
   STATION-DATA.md         # 駅データの増やし方
+  CLIPBRIDGE.md           # PC⇔スマホ 文字やり取りツールの使い方
+  CLIPBRIDGE-IPHONE.md    # 同ツールを iPhone のショートカットから使う手順
+tools/
+  clipbridge/             # PC のキーボードでスマホに入力 / スマホから PC へコピペ（依存なし）
 setup/                    # 新PCセットアップ・2台運用のキット
 legacy/                   # 使っていない旧コード（下記参照）
 ```
