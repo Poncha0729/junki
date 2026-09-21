@@ -6,7 +6,9 @@ MONTH_TOK = re.compile(r'^(\d{1,2})月$')
 YEAR_TOK = re.compile(r'(\d{4})年')
 
 def tokens(line):
-    return [t for t in re.split(r'[ 　]+', line.strip()) if t]
+    line = re.sub(r'(\d),\s+(\d{3})', r'\1,\2', line)  # '1, 223' -> '1,223'
+    line = re.sub(r'(-?\d+)\s+\.(\d)', r'\1.\2', line)     # '0 .5' -> '0.5'
+    return [t for t in re.split(r'[ \u3000]+', line.strip()) if t]
 
 def isnum(t): return bool(NUM.match(t))
 def tonum(t):
