@@ -1,0 +1,1020 @@
+{
+ "meta": {
+  "source": "東日本不動産流通機構「首都圏不動産流通市場の動向」年報および同機構発表値を引用した各社記事（検索スニペットから収集、各点にsource_urlを付記）",
+  "caveat": "reins.or.jp へ直接アクセスできない環境で収集したため、原典PDFでの最終確認を推奨。confidence: high=独立した記事で裏取り済み, medium=年報統計表の要約から取得"
+ },
+ "series": {
+  "m_kensu": {
+   "name": "首都圏 中古マンション 成約件数（暦年）",
+   "unit": "件",
+   "publisher": "公益財団法人 東日本不動産流通機構（東日本レインズ）",
+   "points": {
+    "2004": {
+     "value": 27090,
+     "confidence": "medium",
+     "source_url": "http://www.reins.or.jp/pdf/trend/nmw/NMW_2024/NMW_2024_1_1.pdf",
+     "source_title": "表１－① 中古マンションの基本指標［首都圏］（東日本レインズ 年報 統計表 2024年版）"
+    },
+    "2005": {
+     "value": 28039,
+     "confidence": "medium",
+     "source_url": "http://www.reins.or.jp/pdf/trend/nmw/NMW_2024/NMW_2024_1_1.pdf",
+     "source_title": "表１－① 中古マンションの基本指標［首都圏］（東日本レインズ 年報 統計表 2024年版）"
+    },
+    "2006": {
+     "value": 29378,
+     "confidence": "medium",
+     "source_url": "http://www.reins.or.jp/pdf/trend/nmw/NMW_2024/NMW_2024_1_1.pdf",
+     "source_title": "表１－① 中古マンションの基本指標［首都圏］（東日本レインズ 年報 統計表 2024年版）"
+    },
+    "2007": {
+     "value": 28498,
+     "confidence": "medium",
+     "source_url": "http://www.reins.or.jp/pdf/trend/nmw/NMW_2024/NMW_2024_1_1.pdf",
+     "source_title": "表１－① 中古マンションの基本指標［首都圏］（東日本レインズ 年報 統計表 2024年版）"
+    },
+    "2008": {
+     "value": 28744,
+     "confidence": "medium",
+     "source_url": "http://www.reins.or.jp/pdf/trend/nmw/NMW_2024/NMW_2024_1_1.pdf",
+     "source_title": "表１－① 中古マンションの基本指標［首都圏］（東日本レインズ 年報 統計表 2024年版）"
+    },
+    "2009": {
+     "value": 31183,
+     "confidence": "medium",
+     "source_url": "http://www.reins.or.jp/pdf/trend/nmw/NMW_2024/NMW_2024_1_1.pdf",
+     "source_title": "表１－① 中古マンションの基本指標［首都圏］（東日本レインズ 年報 統計表 2024年版）"
+    },
+    "2010": {
+     "value": 30347,
+     "confidence": "medium",
+     "source_url": "http://www.reins.or.jp/pdf/trend/nmw/NMW_2024/NMW_2024_1_1.pdf",
+     "source_title": "表１－① 中古マンションの基本指標［首都圏］（東日本レインズ 年報 統計表 2024年版）"
+    },
+    "2011": {
+     "value": 28871,
+     "confidence": "medium",
+     "source_url": "http://www.reins.or.jp/pdf/trend/nmw/NMW_2024/NMW_2024_1_1.pdf",
+     "source_title": "表１－① 中古マンションの基本指標［首都圏］（東日本レインズ 年報 統計表 2024年版）"
+    },
+    "2012": {
+     "value": 31397,
+     "confidence": "medium",
+     "source_url": "http://www.reins.or.jp/pdf/trend/nmw/NMW_2024/NMW_2024_1_1.pdf",
+     "source_title": "表１－① 中古マンションの基本指標［首都圏］（東日本レインズ 年報 統計表 2024年版）"
+    },
+    "2013": {
+     "value": 36432,
+     "confidence": "medium",
+     "source_url": "http://www.reins.or.jp/pdf/trend/nmw/NMW_2024/NMW_2024_1_1.pdf",
+     "source_title": "表１－① 中古マンションの基本指標［首都圏］（東日本レインズ 年報 統計表 2024年版）"
+    },
+    "2014": {
+     "value": 33798,
+     "confidence": "high",
+     "source_url": "http://www.reins.or.jp/pdf/trend/nmw/NMW_2024/NMW_2024_1_1.pdf",
+     "source_title": "表１－① 中古マンションの基本指標［首都圏］（東日本レインズ 年報 統計表 2024年版）"
+    },
+    "2015": {
+     "value": 34776,
+     "confidence": "high",
+     "source_url": "https://www.daikyo-anabuki.co.jp/sumai/detail/463/",
+     "source_title": "2015年首都圏の中古マンション、成約件数・平米単価共に前年比上昇（大京穴吹不動産）"
+    },
+    "2016": {
+     "value": 37189,
+     "confidence": "high",
+     "source_url": "https://www.fudosantoushi.net/news/view/003444",
+     "source_title": "2016年首都圏の中古マンション成約件数、過去最高を記録-東日本レインズ（不動産投資ニュース）"
+    },
+    "2017": {
+     "value": 37329,
+     "confidence": "high",
+     "source_url": "https://www.nomu.com/news/20180220.html",
+     "source_title": "17年中古マンション成約件数が過去最高（ノムコム）"
+    },
+    "2018": {
+     "value": 37217,
+     "confidence": "high",
+     "source_url": "https://suumo.jp/journal/2019/01/30/162074/",
+     "source_title": "首都圏の2018年の中古マンション動向、件数は横ばい、価格は上昇（SUUMOジャーナル）"
+    },
+    "2019": {
+     "value": 38109,
+     "confidence": "high",
+     "source_url": "https://suumo.jp/journal/2020/01/28/170104/",
+     "source_title": "2019年の首都圏中古マンション、成約件数は過去最高（SUUMOジャーナル）"
+    },
+    "2020": {
+     "value": 35825,
+     "confidence": "high",
+     "source_url": "https://www.rbayakyu.jp/rbay-kodawari/item/5857-2020-3-6-1-3",
+     "source_title": "2020年首都圏中古マンション成約は約3.6万戸 中古戸建ては過去最多 東日本レインズ（R.B.Ayakyu）"
+    },
+    "2021": {
+     "value": 39812,
+     "confidence": "high",
+     "source_url": "https://www.jutaku-s.com/newsp/id/0000050419",
+     "source_title": "東日本レインズ 21年首都圏中古マンション 成約件数（住宅新報）"
+    },
+    "2022": {
+     "value": 35429,
+     "confidence": "high",
+     "source_url": "https://www.reins.or.jp/pdf/trend/sf/sf_2022.pdf",
+     "source_title": "首都圏不動産流通市場の動向（2022年）東日本レインズ"
+    },
+    "2023": {
+     "value": 35987,
+     "confidence": "high",
+     "source_url": "https://www.reins.or.jp/pdf/trend/sf/sf_2023.pdf",
+     "source_title": "首都圏不動産流通市場の動向（2023年）東日本レインズ"
+    },
+    "2024": {
+     "value": 37222,
+     "confidence": "high",
+     "source_url": "https://www.rbayakyu.jp/rbay-kodawari/item/7957-12-2-2024",
+     "source_title": "中古マンション価格 12年間で2倍以上 成約件数も増加 2024年 東日本レインズ（R.B.Ayakyu）"
+    },
+    "2025": {
+     "value": 49114,
+     "confidence": "high",
+     "source_url": "https://www.rbayakyu.jp/rbay-kodawari/item/8489-2025-49-114-3",
+     "source_title": "2025年の首都圏中古マンション成約件数49,114件 3年連続増加 東日本レインズ（R.B.Ayakyu）"
+    }
+   }
+  },
+  "m_tanka": {
+   "name": "首都圏 中古マンション 成約㎡単価（暦年）",
+   "unit": "万円/㎡",
+   "publisher": "公益財団法人 東日本不動産流通機構（東日本レインズ）",
+   "points": {
+    "2004": {
+     "value": 31.47,
+     "confidence": "medium",
+     "source_url": "http://www.reins.or.jp/pdf/trend/nmw/NMW_2024/NMW_2024_1_1.pdf",
+     "source_title": "表１－① 中古マンションの基本指標［首都圏］（東日本レインズ 年報 統計表 2024年版）"
+    },
+    "2005": {
+     "value": 32.75,
+     "confidence": "medium",
+     "source_url": "http://www.reins.or.jp/pdf/trend/nmw/NMW_2024/NMW_2024_1_1.pdf",
+     "source_title": "表１－① 中古マンションの基本指標［首都圏］（東日本レインズ 年報 統計表 2024年版）"
+    },
+    "2006": {
+     "value": 34.67,
+     "confidence": "medium",
+     "source_url": "http://www.reins.or.jp/pdf/trend/nmw/NMW_2024/NMW_2024_1_1.pdf",
+     "source_title": "表１－① 中古マンションの基本指標［首都圏］（東日本レインズ 年報 統計表 2024年版）"
+    },
+    "2007": {
+     "value": 38.63,
+     "confidence": "medium",
+     "source_url": "http://www.reins.or.jp/pdf/trend/nmw/NMW_2024/NMW_2024_1_1.pdf",
+     "source_title": "表１－① 中古マンションの基本指標［首都圏］（東日本レインズ 年報 統計表 2024年版）"
+    },
+    "2008": {
+     "value": 39.87,
+     "confidence": "medium",
+     "source_url": "http://www.reins.or.jp/pdf/trend/nmw/NMW_2024/NMW_2024_1_1.pdf",
+     "source_title": "表１－① 中古マンションの基本指標［首都圏］（東日本レインズ 年報 統計表 2024年版）"
+    },
+    "2009": {
+     "value": 37.77,
+     "confidence": "medium",
+     "source_url": "http://www.reins.or.jp/pdf/trend/nmw/NMW_2024/NMW_2024_1_1.pdf",
+     "source_title": "表１－① 中古マンションの基本指標［首都圏］（東日本レインズ 年報 統計表 2024年版）"
+    },
+    "2010": {
+     "value": 39.21,
+     "confidence": "medium",
+     "source_url": "http://www.reins.or.jp/pdf/trend/nmw/NMW_2024/NMW_2024_1_1.pdf",
+     "source_title": "表１－① 中古マンションの基本指標［首都圏］（東日本レインズ 年報 統計表 2024年版）"
+    },
+    "2011": {
+     "value": 38.93,
+     "confidence": "medium",
+     "source_url": "http://www.reins.or.jp/pdf/trend/nmw/NMW_2024/NMW_2024_1_1.pdf",
+     "source_title": "表１－① 中古マンションの基本指標［首都圏］（東日本レインズ 年報 統計表 2024年版）"
+    },
+    "2012": {
+     "value": 38.19,
+     "confidence": "medium",
+     "source_url": "http://www.reins.or.jp/pdf/trend/nmw/NMW_2024/NMW_2024_1_1.pdf",
+     "source_title": "表１－① 中古マンションの基本指標［首都圏］（東日本レインズ 年報 統計表 2024年版）"
+    },
+    "2013": {
+     "value": 39.96,
+     "confidence": "medium",
+     "source_url": "http://www.reins.or.jp/pdf/trend/nmw/NMW_2024/NMW_2024_1_1.pdf",
+     "source_title": "表１－① 中古マンションの基本指標［首都圏］（東日本レインズ 年報 統計表 2024年版）"
+    },
+    "2014": {
+     "value": 42.5,
+     "confidence": "high",
+     "source_url": "http://www.reins.or.jp/pdf/trend/nmw/NMW_2024/NMW_2024_1_1.pdf",
+     "source_title": "表１－① 中古マンションの基本指標［首都圏］（東日本レインズ 年報 統計表 2024年版）"
+    },
+    "2015": {
+     "value": 45.25,
+     "confidence": "high",
+     "source_url": "https://www.daikyo-anabuki.co.jp/sumai/detail/463/",
+     "source_title": "2015年首都圏の中古マンション、成約件数・平米単価共に前年比上昇（大京穴吹不動産）"
+    },
+    "2016": {
+     "value": 47.92,
+     "confidence": "high",
+     "source_url": "https://www.reins.or.jp/pdf/trend/sf/sf_2016.pdf",
+     "source_title": "首都圏不動産流通市場の動向（2016年）東日本レインズ"
+    },
+    "2017": {
+     "value": 50.0,
+     "confidence": "high",
+     "source_url": "https://www.nomu.com/news/20180220.html",
+     "source_title": "17年中古マンション成約件数が過去最高（ノムコム）"
+    },
+    "2018": {
+     "value": 51.61,
+     "confidence": "high",
+     "source_url": "http://www.reins.or.jp/pdf/trend/sf/sf_2018.pdf",
+     "source_title": "首都圏不動産流通市場の動向（2018年）東日本レインズ"
+    },
+    "2019": {
+     "value": 53.45,
+     "confidence": "high",
+     "source_url": "https://suumo.jp/journal/2020/01/28/170104/",
+     "source_title": "2019年の首都圏中古マンション、成約件数は過去最高（SUUMOジャーナル）"
+    },
+    "2020": {
+     "value": 55.17,
+     "confidence": "high",
+     "source_url": "https://www.rbayakyu.jp/rbay-kodawari/item/5857-2020-3-6-1-3",
+     "source_title": "2020年首都圏中古マンション成約は約3.6万戸 中古戸建ては過去最多 東日本レインズ（R.B.Ayakyu）"
+    },
+    "2021": {
+     "value": 59.81,
+     "confidence": "high",
+     "source_url": "https://suumo.jp/journal/2022/01/25/184899/",
+     "source_title": "21年の首都圏中古マンション、成約価格は9年連続上昇（SUUMOジャーナル）"
+    },
+    "2022": {
+     "value": 67.24,
+     "confidence": "high",
+     "source_url": "https://www.reins.or.jp/pdf/trend/sf/sf_2022.pdf",
+     "source_title": "首都圏不動産流通市場の動向（2022年）東日本レインズ"
+    },
+    "2023": {
+     "value": 71.9,
+     "confidence": "high",
+     "source_url": "https://www.reins.or.jp/pdf/trend/sf/sf_2023.pdf",
+     "source_title": "首都圏不動産流通市場の動向（2023年）東日本レインズ"
+    },
+    "2024": {
+     "value": 76.88,
+     "confidence": "high",
+     "source_url": "https://www.rbayakyu.jp/rbay-kodawari/item/7957-12-2-2024",
+     "source_title": "中古マンション価格 12年間で2倍以上 成約件数も増加 2024年 東日本レインズ（R.B.Ayakyu）"
+    },
+    "2025": {
+     "value": 82.98,
+     "confidence": "high",
+     "source_url": "https://www.rbayakyu.jp/rbay-kodawari/item/8489-2025-49-114-3",
+     "source_title": "2025年の首都圏中古マンション成約件数49,114件 3年連続増加 東日本レインズ（R.B.Ayakyu）"
+    }
+   }
+  },
+  "m_kakaku": {
+   "name": "首都圏 中古マンション 成約価格（暦年・平均）",
+   "unit": "万円",
+   "publisher": "公益財団法人 東日本不動産流通機構（東日本レインズ）",
+   "points": {
+    "2004": {
+     "value": 2029,
+     "confidence": "medium",
+     "source_url": "http://www.reins.or.jp/pdf/trend/nmw/NMW_2024/NMW_2024_1_1.pdf",
+     "source_title": "表１－① 中古マンションの基本指標［首都圏］（東日本レインズ 年報 統計表 2024年版）"
+    },
+    "2005": {
+     "value": 2107,
+     "confidence": "medium",
+     "source_url": "http://www.reins.or.jp/pdf/trend/nmw/NMW_2024/NMW_2024_1_1.pdf",
+     "source_title": "表１－① 中古マンションの基本指標［首都圏］（東日本レインズ 年報 統計表 2024年版）"
+    },
+    "2006": {
+     "value": 2236,
+     "confidence": "medium",
+     "source_url": "http://www.reins.or.jp/pdf/trend/nmw/NMW_2024/NMW_2024_1_1.pdf",
+     "source_title": "表１－① 中古マンションの基本指標［首都圏］（東日本レインズ 年報 統計表 2024年版）"
+    },
+    "2007": {
+     "value": 2480,
+     "confidence": "medium",
+     "source_url": "http://www.reins.or.jp/pdf/trend/nmw/NMW_2024/NMW_2024_1_1.pdf",
+     "source_title": "表１－① 中古マンションの基本指標［首都圏］（東日本レインズ 年報 統計表 2024年版）"
+    },
+    "2008": {
+     "value": 2603,
+     "confidence": "medium",
+     "source_url": "http://www.reins.or.jp/pdf/trend/nmw/NMW_2024/NMW_2024_1_1.pdf",
+     "source_title": "表１－① 中古マンションの基本指標［首都圏］（東日本レインズ 年報 統計表 2024年版）"
+    },
+    "2009": {
+     "value": 2491,
+     "confidence": "medium",
+     "source_url": "http://www.reins.or.jp/pdf/trend/nmw/NMW_2024/NMW_2024_1_1.pdf",
+     "source_title": "表１－① 中古マンションの基本指標［首都圏］（東日本レインズ 年報 統計表 2024年版）"
+    },
+    "2010": {
+     "value": 2566,
+     "confidence": "medium",
+     "source_url": "http://www.reins.or.jp/pdf/trend/nmw/NMW_2024/NMW_2024_1_1.pdf",
+     "source_title": "表１－① 中古マンションの基本指標［首都圏］（東日本レインズ 年報 統計表 2024年版）"
+    },
+    "2011": {
+     "value": 2530,
+     "confidence": "medium",
+     "source_url": "http://www.reins.or.jp/pdf/trend/nmw/NMW_2024/NMW_2024_1_1.pdf",
+     "source_title": "表１－① 中古マンションの基本指標［首都圏］（東日本レインズ 年報 統計表 2024年版）"
+    },
+    "2012": {
+     "value": 2500,
+     "confidence": "medium",
+     "source_url": "http://www.reins.or.jp/pdf/trend/nmw/NMW_2024/NMW_2024_1_1.pdf",
+     "source_title": "表１－① 中古マンションの基本指標［首都圏］（東日本レインズ 年報 統計表 2024年版）"
+    },
+    "2013": {
+     "value": 2589,
+     "confidence": "medium",
+     "source_url": "http://www.reins.or.jp/pdf/trend/nmw/NMW_2024/NMW_2024_1_1.pdf",
+     "source_title": "表１－① 中古マンションの基本指標［首都圏］（東日本レインズ 年報 統計表 2024年版）"
+    },
+    "2014": {
+     "value": 2727,
+     "confidence": "high",
+     "source_url": "http://www.reins.or.jp/pdf/trend/nmw/NMW_2024/NMW_2024_1_1.pdf",
+     "source_title": "表１－① 中古マンションの基本指標［首都圏］（東日本レインズ 年報 統計表 2024年版）"
+    },
+    "2015": {
+     "value": 2892,
+     "confidence": "medium",
+     "source_url": "http://www.reins.or.jp/pdf/trend/nmw/NMW_2024/NMW_2024_1_1.pdf",
+     "source_title": "表１－① 中古マンションの基本指標［首都圏］（東日本レインズ 年報 統計表 2024年版）"
+    },
+    "2016": {
+     "value": 3049,
+     "confidence": "high",
+     "source_url": "https://www.fudosantoushi.net/news/view/003444",
+     "source_title": "2016年首都圏の中古マンション成約件数、過去最高を記録-東日本レインズ（不動産投資ニュース）"
+    },
+    "2017": {
+     "value": 3195,
+     "confidence": "medium",
+     "source_url": "https://www.reins.or.jp/pdf/trend/sf/sf_2019.pdf",
+     "source_title": "首都圏不動産流通市場の動向（2019年）東日本レインズ"
+    },
+    "2018": {
+     "value": 3333,
+     "confidence": "high",
+     "source_url": "http://www.reins.or.jp/pdf/trend/sf/sf_2018.pdf",
+     "source_title": "首都圏不動産流通市場の動向（2018年）東日本レインズ"
+    },
+    "2019": {
+     "value": 3442,
+     "confidence": "high",
+     "source_url": "https://suumo.jp/journal/2020/01/28/170104/",
+     "source_title": "2019年の首都圏中古マンション、成約件数は過去最高（SUUMOジャーナル）"
+    },
+    "2020": {
+     "value": 3599,
+     "confidence": "high",
+     "source_url": "https://www.rbayakyu.jp/rbay-kodawari/item/5857-2020-3-6-1-3",
+     "source_title": "2020年首都圏中古マンション成約は約3.6万戸 中古戸建ては過去最多 東日本レインズ（R.B.Ayakyu）"
+    },
+    "2021": {
+     "value": 3869,
+     "confidence": "high",
+     "source_url": "https://suumo.jp/journal/2022/01/25/184899/",
+     "source_title": "21年の首都圏中古マンション、成約価格は9年連続上昇（SUUMOジャーナル）"
+    },
+    "2022": {
+     "value": 4276,
+     "confidence": "high",
+     "source_url": "https://ir-i.jp/realestate/?p=3746",
+     "source_title": "2022年首都圏中古マンション成約単価は堅調に推移（収益不動産ONLINE）"
+    },
+    "2023": {
+     "value": 4575,
+     "confidence": "high",
+     "source_url": "https://www.reins.or.jp/pdf/trend/sf/sf_2023.pdf",
+     "source_title": "首都圏不動産流通市場の動向（2023年）東日本レインズ"
+    },
+    "2024": {
+     "value": 4890,
+     "confidence": "high",
+     "source_url": "https://www.rbayakyu.jp/rbay-kodawari/item/7957-12-2-2024",
+     "source_title": "中古マンション価格 12年間で2倍以上 成約件数も増加 2024年 東日本レインズ（R.B.Ayakyu）"
+    },
+    "2025": {
+     "value": 5200,
+     "confidence": "high",
+     "source_url": "https://www.rbayakyu.jp/rbay-kodawari/item/8489-2025-49-114-3",
+     "source_title": "2025年の首都圏中古マンション成約件数49,114件 3年連続増加 東日本レインズ（R.B.Ayakyu）"
+    }
+   }
+  },
+  "m_menseki": {
+   "name": "首都圏 中古マンション 成約物件 平均専有面積（暦年）",
+   "unit": "㎡",
+   "publisher": "公益財団法人 東日本不動産流通機構（東日本レインズ）",
+   "points": {
+    "2004": {
+     "value": 64.48,
+     "confidence": "medium",
+     "source_url": "http://www.reins.or.jp/pdf/trend/nmw/NMW_2024/NMW_2024_1_1.pdf",
+     "source_title": "表１－① 中古マンションの基本指標［首都圏］（東日本レインズ 年報 統計表 2024年版）"
+    },
+    "2005": {
+     "value": 64.33,
+     "confidence": "medium",
+     "source_url": "http://www.reins.or.jp/pdf/trend/nmw/NMW_2024/NMW_2024_1_1.pdf",
+     "source_title": "表１－① 中古マンションの基本指標［首都圏］（東日本レインズ 年報 統計表 2024年版）"
+    },
+    "2006": {
+     "value": 64.5,
+     "confidence": "medium",
+     "source_url": "http://www.reins.or.jp/pdf/trend/nmw/NMW_2024/NMW_2024_1_1.pdf",
+     "source_title": "表１－① 中古マンションの基本指標［首都圏］（東日本レインズ 年報 統計表 2024年版）"
+    },
+    "2007": {
+     "value": 64.22,
+     "confidence": "medium",
+     "source_url": "http://www.reins.or.jp/pdf/trend/nmw/NMW_2024/NMW_2024_1_1.pdf",
+     "source_title": "表１－① 中古マンションの基本指標［首都圏］（東日本レインズ 年報 統計表 2024年版）"
+    },
+    "2008": {
+     "value": 65.29,
+     "confidence": "medium",
+     "source_url": "http://www.reins.or.jp/pdf/trend/nmw/NMW_2024/NMW_2024_1_1.pdf",
+     "source_title": "表１－① 中古マンションの基本指標［首都圏］（東日本レインズ 年報 統計表 2024年版）"
+    },
+    "2012": {
+     "value": 65.48,
+     "confidence": "medium",
+     "source_url": "http://www.reins.or.jp/pdf/trend/nmw/NMW_2024/NMW_2024_1_1.pdf",
+     "source_title": "表１－① 中古マンションの基本指標［首都圏］（東日本レインズ 年報 統計表 2024年版）"
+    },
+    "2013": {
+     "value": 64.79,
+     "confidence": "medium",
+     "source_url": "http://www.reins.or.jp/pdf/trend/nmw/NMW_2024/NMW_2024_1_1.pdf",
+     "source_title": "表１－① 中古マンションの基本指標［首都圏］（東日本レインズ 年報 統計表 2024年版）"
+    },
+    "2014": {
+     "value": 64.17,
+     "confidence": "high",
+     "source_url": "http://www.reins.or.jp/pdf/trend/nmw/NMW_2024/NMW_2024_1_1.pdf",
+     "source_title": "表１－① 中古マンションの基本指標［首都圏］（東日本レインズ 年報 統計表 2024年版）"
+    },
+    "2015": {
+     "value": 63.92,
+     "confidence": "medium",
+     "source_url": "http://www.reins.or.jp/pdf/trend/nmw/NMW_2024/NMW_2024_1_1.pdf",
+     "source_title": "表１－① 中古マンションの基本指標［首都圏］（東日本レインズ 年報 統計表 2024年版）"
+    },
+    "2016": {
+     "value": 63.63,
+     "confidence": "medium",
+     "source_url": "https://www.reins.or.jp/pdf/trend/sf/sf_2019.pdf",
+     "source_title": "首都圏不動産流通市場の動向（2019年）東日本レインズ"
+    },
+    "2017": {
+     "value": 63.91,
+     "confidence": "medium",
+     "source_url": "https://www.reins.or.jp/pdf/trend/sf/sf_2019.pdf",
+     "source_title": "首都圏不動産流通市場の動向（2019年）東日本レインズ"
+    },
+    "2019": {
+     "value": 64.39,
+     "confidence": "medium",
+     "source_url": "https://www.reins.or.jp/pdf/trend/sf/sf_2019.pdf",
+     "source_title": "首都圏不動産流通市場の動向（2019年）東日本レインズ"
+    },
+    "2020": {
+     "value": 65.24,
+     "confidence": "medium",
+     "source_url": "https://www.reins.or.jp/pdf/trend/sf/sf_2020.pdf",
+     "source_title": "首都圏不動産流通市場の動向（2020年）東日本レインズ"
+    },
+    "2021": {
+     "value": 64.68,
+     "confidence": "medium",
+     "source_url": "https://www.reins.or.jp/pdf/trend/sf/sf_2021.pdf",
+     "source_title": "首都圏不動産流通市場の動向（2021年）東日本レインズ"
+    },
+    "2022": {
+     "value": 63.59,
+     "confidence": "medium",
+     "source_url": "https://www.reins.or.jp/pdf/trend/sf/sf_2022.pdf",
+     "source_title": "首都圏不動産流通市場の動向（2022年）東日本レインズ"
+    },
+    "2023": {
+     "value": 63.63,
+     "confidence": "high",
+     "source_url": "https://www.reins.or.jp/pdf/trend/sf/sf_2023.pdf",
+     "source_title": "首都圏不動産流通市場の動向（2023年）東日本レインズ"
+    },
+    "2024": {
+     "value": 63.6,
+     "confidence": "high",
+     "source_url": "https://www.rbayakyu.jp/rbay-kodawari/item/7957-12-2-2024",
+     "source_title": "中古マンション価格 12年間で2倍以上 成約件数も増加 2024年 東日本レインズ（R.B.Ayakyu）"
+    },
+    "2025": {
+     "value": 62.66,
+     "confidence": "medium",
+     "source_url": "https://www.reins.or.jp/pdf/trend/sf/sf_2025.pdf",
+     "source_title": "首都圏不動産流通市場の動向（2025年）東日本レインズ"
+    }
+   }
+  },
+  "m_chiku": {
+   "name": "首都圏 中古マンション 成約物件 平均築年数（暦年）",
+   "unit": "年",
+   "publisher": "公益財団法人 東日本不動産流通機構（東日本レインズ）",
+   "points": {
+    "2004": {
+     "value": 16.66,
+     "confidence": "medium",
+     "source_url": "http://www.reins.or.jp/pdf/trend/nmw/NMW_2024/NMW_2024_1_1.pdf",
+     "source_title": "表１－① 中古マンションの基本指標［首都圏］（東日本レインズ 年報 統計表 2024年版）"
+    },
+    "2005": {
+     "value": 16.86,
+     "confidence": "medium",
+     "source_url": "http://www.reins.or.jp/pdf/trend/nmw/NMW_2024/NMW_2024_1_1.pdf",
+     "source_title": "表１－① 中古マンションの基本指標［首都圏］（東日本レインズ 年報 統計表 2024年版）"
+    },
+    "2006": {
+     "value": 17.07,
+     "confidence": "medium",
+     "source_url": "http://www.reins.or.jp/pdf/trend/nmw/NMW_2024/NMW_2024_1_1.pdf",
+     "source_title": "表１－① 中古マンションの基本指標［首都圏］（東日本レインズ 年報 統計表 2024年版）"
+    },
+    "2007": {
+     "value": 16.93,
+     "confidence": "medium",
+     "source_url": "http://www.reins.or.jp/pdf/trend/nmw/NMW_2024/NMW_2024_1_1.pdf",
+     "source_title": "表１－① 中古マンションの基本指標［首都圏］（東日本レインズ 年報 統計表 2024年版）"
+    },
+    "2008": {
+     "value": 16.43,
+     "confidence": "medium",
+     "source_url": "http://www.reins.or.jp/pdf/trend/nmw/NMW_2024/NMW_2024_1_1.pdf",
+     "source_title": "表１－① 中古マンションの基本指標［首都圏］（東日本レインズ 年報 統計表 2024年版）"
+    },
+    "2012": {
+     "value": 18.97,
+     "confidence": "medium",
+     "source_url": "http://www.reins.or.jp/pdf/trend/nmw/NMW_2024/NMW_2024_1_1.pdf",
+     "source_title": "表１－① 中古マンションの基本指標［首都圏］（東日本レインズ 年報 統計表 2024年版）"
+    },
+    "2013": {
+     "value": 19.27,
+     "confidence": "medium",
+     "source_url": "http://www.reins.or.jp/pdf/trend/nmw/NMW_2024/NMW_2024_1_1.pdf",
+     "source_title": "表１－① 中古マンションの基本指標［首都圏］（東日本レインズ 年報 統計表 2024年版）"
+    },
+    "2014": {
+     "value": 19.63,
+     "confidence": "high",
+     "source_url": "http://www.reins.or.jp/pdf/trend/nmw/NMW_2024/NMW_2024_1_1.pdf",
+     "source_title": "表１－① 中古マンションの基本指標［首都圏］（東日本レインズ 年報 統計表 2024年版）"
+    },
+    "2015": {
+     "value": 20.13,
+     "confidence": "medium",
+     "source_url": "http://www.reins.or.jp/pdf/trend/nmw/NMW_2024/NMW_2024_1_1.pdf",
+     "source_title": "表１－① 中古マンションの基本指標［首都圏］（東日本レインズ 年報 統計表 2024年版）"
+    },
+    "2016": {
+     "value": 20.26,
+     "confidence": "medium",
+     "source_url": "https://www.reins.or.jp/pdf/trend/sf/sf_2019.pdf",
+     "source_title": "首都圏不動産流通市場の動向（2019年）東日本レインズ"
+    },
+    "2017": {
+     "value": 20.7,
+     "confidence": "medium",
+     "source_url": "https://www.reins.or.jp/pdf/trend/sf/sf_2019.pdf",
+     "source_title": "首都圏不動産流通市場の動向（2019年）東日本レインズ"
+    },
+    "2019": {
+     "value": 21.64,
+     "confidence": "medium",
+     "source_url": "https://www.reins.or.jp/pdf/trend/sf/sf_2019.pdf",
+     "source_title": "首都圏不動産流通市場の動向（2019年）東日本レインズ"
+    },
+    "2020": {
+     "value": 21.99,
+     "confidence": "medium",
+     "source_url": "https://www.reins.or.jp/pdf/trend/sf/sf_2020.pdf",
+     "source_title": "首都圏不動産流通市場の動向（2020年）東日本レインズ"
+    },
+    "2021": {
+     "value": 22.67,
+     "confidence": "medium",
+     "source_url": "https://www.reins.or.jp/pdf/trend/sf/sf_2021.pdf",
+     "source_title": "首都圏不動産流通市場の動向（2021年）東日本レインズ"
+    },
+    "2022": {
+     "value": 23.33,
+     "confidence": "medium",
+     "source_url": "https://www.reins.or.jp/pdf/trend/sf/sf_2022.pdf",
+     "source_title": "首都圏不動産流通市場の動向（2022年）東日本レインズ"
+    },
+    "2023": {
+     "value": 23.83,
+     "confidence": "high",
+     "source_url": "https://www.reins.or.jp/pdf/trend/sf/sf_2023.pdf",
+     "source_title": "首都圏不動産流通市場の動向（2023年）東日本レインズ"
+    },
+    "2024": {
+     "value": 24.53,
+     "confidence": "high",
+     "source_url": "https://www.rbayakyu.jp/rbay-kodawari/item/7957-12-2-2024",
+     "source_title": "中古マンション価格 12年間で2倍以上 成約件数も増加 2024年 東日本レインズ（R.B.Ayakyu）"
+    },
+    "2025": {
+     "value": 26.58,
+     "confidence": "medium",
+     "source_url": "https://www.reins.or.jp/pdf/trend/sf/sf_2025.pdf",
+     "source_title": "首都圏不動産流通市場の動向（2025年）東日本レインズ"
+    }
+   }
+  },
+  "d_kensu": {
+   "name": "首都圏 中古戸建住宅 成約件数（年間）",
+   "unit": "件",
+   "publisher": "公益財団法人 東日本不動産流通機構（東日本レインズ）",
+   "points": {
+    "2013": {
+     "value": 12245,
+     "confidence": "high",
+     "source_url": "https://www.reins.or.jp/pdf/trend/sf/sf_2016.pdf",
+     "source_title": "東日本レインズ 首都圏不動産流通市場の動向（2016年）: 中古マンション 2012年-2016年 / 中古戸建住宅 2012年-2016年"
+    },
+    "2014": {
+     "value": 11208,
+     "confidence": "medium",
+     "source_url": "http://www.reins.or.jp/pdf/trend/sf/sf_2018.pdf",
+     "source_title": "東日本レインズ 首都圏不動産流通市場の動向（2018年）: 中古マンション 2014年-2018年 / 中古戸建住宅 2014年-2018年"
+    },
+    "2016": {
+     "value": 13195,
+     "confidence": "high",
+     "source_url": "https://www.reins.or.jp/pdf/trend/sf/sf_2016.pdf",
+     "source_title": "東日本レインズ 首都圏不動産流通市場の動向（2016年）: 中古マンション 2012年-2016年 / 中古戸建住宅 2012年-2016年"
+    },
+    "2017": {
+     "value": 12743,
+     "confidence": "high",
+     "source_url": "https://www.reins.or.jp/pdf/trend/sf/sf_2017.pdf",
+     "source_title": "東日本レインズ 首都圏不動産流通市場の動向（2017年）: 中古マンション 2013年-2017年 / 中古戸建住宅 2013年-2017年"
+    },
+    "2018": {
+     "value": 12718,
+     "confidence": "high",
+     "source_url": "https://www.stepon.co.jp/column/2019/0116/",
+     "source_title": "【住友不動産販売】不動産流通市場動向(2018年1月-12月)｜不動産コラム"
+    },
+    "2019": {
+     "value": 13037,
+     "confidence": "high",
+     "source_url": "https://suumo.jp/journal/2020/02/05/170218/",
+     "source_title": "2019年の首都圏の一戸建て市場動向、平均価格が公表結果によって違うのはなぜ？（SUUMOジャーナル）"
+    },
+    "2020": {
+     "value": 13348,
+     "confidence": "high",
+     "source_url": "https://www.rbayakyu.jp/rbay-kodawari/item/5857-2020-3-6-1-3",
+     "source_title": "2020年首都圏中古マンション成約は約3.6万戸 中古戸建ては過去最多 東日本レインズ（R.B.A.）"
+    },
+    "2021": {
+     "value": 15436,
+     "confidence": "medium",
+     "source_url": "https://www.jutaku-s.com/newsp/id/0000050419",
+     "source_title": "東日本レインズ 21年首都圏中古マンション 成約件数（住宅新報web）"
+    },
+    "2022": {
+     "value": 13446,
+     "confidence": "high",
+     "source_url": "https://www.stepon.co.jp/column/2023/0215/",
+     "source_title": "すみふの仲介ステップ（住友不動産ステップ）2022年 首都圏 不動産流通市場動向及び新築マンション供給戸数｜不動産コラム"
+    },
+    "2023": {
+     "value": 12871,
+     "confidence": "high",
+     "source_url": "https://www.reins.or.jp/pdf/trend/sf/sf_2023.pdf",
+     "source_title": "東日本レインズ 首都圏不動産流通市場の動向（2023年）: 中古マンション 2019年-2023年 / 中古戸建住宅 2019年-2023年"
+    },
+    "2024": {
+     "value": 14182,
+     "confidence": "high",
+     "source_url": "https://www.stepon.co.jp/column/2025/0210/",
+     "source_title": "すみふの仲介ステップ（住友不動産ステップ）2024年 首都圏 不動産流通市場動向及び新築マンション市場動向｜不動産コラム"
+    },
+    "2025": {
+     "value": 21632,
+     "confidence": "high",
+     "source_url": "https://www.rbayakyu.jp/rbay-kodawari/item/8489-2025-49-114-3",
+     "source_title": "2025年の首都圏中古マンション成約件数49,114件 3年連続増加 東日本レインズ（R.B.A.）"
+    }
+   }
+  },
+  "d_kakaku": {
+   "name": "首都圏 中古戸建住宅 成約価格（年間平均）",
+   "unit": "万円",
+   "publisher": "公益財団法人 東日本不動産流通機構（東日本レインズ）",
+   "points": {
+    "2014": {
+     "value": 2917,
+     "confidence": "medium",
+     "source_url": "http://www.reins.or.jp/pdf/trend/sf/sf_2018.pdf",
+     "source_title": "東日本レインズ 首都圏不動産流通市場の動向（2018年）: 中古マンション 2014年-2018年 / 中古戸建住宅 2014年-2018年"
+    },
+    "2016": {
+     "value": 3030,
+     "confidence": "high",
+     "source_url": "https://www.reins.or.jp/pdf/trend/sf/sf_2016.pdf",
+     "source_title": "東日本レインズ 首都圏不動産流通市場の動向（2016年）: 中古マンション 2012年-2016年 / 中古戸建住宅 2012年-2016年"
+    },
+    "2017": {
+     "value": 3072,
+     "confidence": "high",
+     "source_url": "https://www.reins.or.jp/pdf/trend/sf/sf_2017.pdf",
+     "source_title": "東日本レインズ 首都圏不動産流通市場の動向（2017年）: 中古マンション 2013年-2017年 / 中古戸建住宅 2013年-2017年"
+    },
+    "2018": {
+     "value": 3142,
+     "confidence": "high",
+     "source_url": "https://www.stepon.co.jp/column/2019/0116/",
+     "source_title": "【住友不動産販売】不動産流通市場動向(2018年1月-12月)｜不動産コラム"
+    },
+    "2019": {
+     "value": 3115,
+     "confidence": "high",
+     "source_url": "https://suumo.jp/journal/2020/02/05/170218/",
+     "source_title": "2019年の首都圏の一戸建て市場動向、平均価格が公表結果によって違うのはなぜ？（SUUMOジャーナル）"
+    },
+    "2020": {
+     "value": 3110,
+     "confidence": "high",
+     "source_url": "https://www.rbayakyu.jp/rbay-kodawari/item/5857-2020-3-6-1-3",
+     "source_title": "2020年首都圏中古マンション成約は約3.6万戸 中古戸建ては過去最多 東日本レインズ（R.B.A.）"
+    },
+    "2021": {
+     "value": 3451,
+     "confidence": "high",
+     "source_url": "https://www.reins.or.jp/pdf/trend/sf/sf_2021.pdf",
+     "source_title": "東日本レインズ 首都圏不動産流通市場の動向（2021年）: 中古マンション 2017年-2021年 / 中古戸建住宅 2017年-2021年"
+    },
+    "2022": {
+     "value": 3753,
+     "confidence": "high",
+     "source_url": "https://www.stepon.co.jp/column/2023/0215/",
+     "source_title": "すみふの仲介ステップ（住友不動産ステップ）2022年 首都圏 不動産流通市場動向及び新築マンション供給戸数｜不動産コラム"
+    },
+    "2023": {
+     "value": 3848,
+     "confidence": "high",
+     "source_url": "https://www.reins.or.jp/pdf/trend/sf/sf_2023.pdf",
+     "source_title": "東日本レインズ 首都圏不動産流通市場の動向（2023年）: 中古マンション 2019年-2023年 / 中古戸建住宅 2019年-2023年"
+    },
+    "2024": {
+     "value": 3948,
+     "confidence": "high",
+     "source_url": "https://www.stepon.co.jp/column/2025/0210/",
+     "source_title": "すみふの仲介ステップ（住友不動産ステップ）2024年 首都圏 不動産流通市場動向及び新築マンション市場動向｜不動産コラム"
+    },
+    "2025": {
+     "value": 3917,
+     "confidence": "high",
+     "source_url": "https://www.rbayakyu.jp/rbay-kodawari/item/8489-2025-49-114-3",
+     "source_title": "2025年の首都圏中古マンション成約件数49,114件 3年連続増加 東日本レインズ（R.B.A.）"
+    }
+   }
+  },
+  "d_tochi": {
+   "name": "首都圏 中古戸建住宅 成約物件 平均土地面積",
+   "unit": "㎡",
+   "publisher": "公益財団法人 東日本不動産流通機構（東日本レインズ）",
+   "points": {
+    "2014": {
+     "value": 148.2,
+     "confidence": "medium",
+     "source_url": "http://www.reins.or.jp/pdf/trend/sf/sf_2018.pdf",
+     "source_title": "東日本レインズ 首都圏不動産流通市場の動向（2018年）: 中古マンション 2014年-2018年 / 中古戸建住宅 2014年-2018年"
+    },
+    "2016": {
+     "value": 149.12,
+     "confidence": "high",
+     "source_url": "https://www.reins.or.jp/pdf/trend/sf/sf_2016.pdf",
+     "source_title": "東日本レインズ 首都圏不動産流通市場の動向（2016年）: 中古マンション 2012年-2016年 / 中古戸建住宅 2012年-2016年"
+    },
+    "2017": {
+     "value": 147.68,
+     "confidence": "high",
+     "source_url": "https://www.reins.or.jp/pdf/trend/sf/sf_2017.pdf",
+     "source_title": "東日本レインズ 首都圏不動産流通市場の動向（2017年）: 中古マンション 2013年-2017年 / 中古戸建住宅 2013年-2017年"
+    },
+    "2018": {
+     "value": 145.76,
+     "confidence": "high",
+     "source_url": "http://www.reins.or.jp/pdf/trend/sf/sf_2018.pdf",
+     "source_title": "東日本レインズ 首都圏不動産流通市場の動向（2018年）: 中古マンション 2014年-2018年 / 中古戸建住宅 2014年-2018年"
+    },
+    "2019": {
+     "value": 146.82,
+     "confidence": "high",
+     "source_url": "https://suumo.jp/journal/2020/02/05/170218/",
+     "source_title": "2019年の首都圏の一戸建て市場動向、平均価格が公表結果によって違うのはなぜ？（SUUMOジャーナル）"
+    },
+    "2020": {
+     "value": 147.99,
+     "confidence": "high",
+     "source_url": "https://www.reins.or.jp/pdf/trend/sf/sf_2020.pdf",
+     "source_title": "東日本レインズ 首都圏不動産流通市場の動向（2020年）: 中古マンション 2016年-2020年 / 中古戸建住宅 2016年-2020年"
+    },
+    "2021": {
+     "value": 143.77,
+     "confidence": "high",
+     "source_url": "https://www.reins.or.jp/pdf/trend/sf/sf_2021.pdf",
+     "source_title": "東日本レインズ 首都圏不動産流通市場の動向（2021年）: 中古マンション 2017年-2021年 / 中古戸建住宅 2017年-2021年"
+    },
+    "2022": {
+     "value": 143.97,
+     "confidence": "high",
+     "source_url": "https://www.reins.or.jp/pdf/trend/sf/sf_2022.pdf",
+     "source_title": "東日本レインズ 首都圏不動産流通市場の動向（2022年）: 中古マンション 2018年-2022年 / 中古戸建住宅 2018年-2022年"
+    },
+    "2023": {
+     "value": 143.79,
+     "confidence": "high",
+     "source_url": "https://www.reins.or.jp/pdf/trend/sf/sf_2023.pdf",
+     "source_title": "東日本レインズ 首都圏不動産流通市場の動向（2023年）: 中古マンション 2019年-2023年 / 中古戸建住宅 2019年-2023年"
+    },
+    "2024": {
+     "value": 142.25,
+     "confidence": "high",
+     "source_url": "https://www.stepon.co.jp/column/2025/0210/",
+     "source_title": "すみふの仲介ステップ（住友不動産ステップ）2024年 首都圏 不動産流通市場動向及び新築マンション市場動向｜不動産コラム"
+    }
+   }
+  },
+  "d_tatemono": {
+   "name": "首都圏 中古戸建住宅 成約物件 平均建物面積",
+   "unit": "㎡",
+   "publisher": "公益財団法人 東日本不動産流通機構（東日本レインズ）",
+   "points": {
+    "2014": {
+     "value": 105.07,
+     "confidence": "medium",
+     "source_url": "http://www.reins.or.jp/pdf/trend/sf/sf_2018.pdf",
+     "source_title": "東日本レインズ 首都圏不動産流通市場の動向（2018年）: 中古マンション 2014年-2018年 / 中古戸建住宅 2014年-2018年"
+    },
+    "2016": {
+     "value": 105.96,
+     "confidence": "high",
+     "source_url": "https://www.reins.or.jp/pdf/trend/sf/sf_2016.pdf",
+     "source_title": "東日本レインズ 首都圏不動産流通市場の動向（2016年）: 中古マンション 2012年-2016年 / 中古戸建住宅 2012年-2016年"
+    },
+    "2017": {
+     "value": 105.73,
+     "confidence": "high",
+     "source_url": "https://www.reins.or.jp/pdf/trend/sf/sf_2017.pdf",
+     "source_title": "東日本レインズ 首都圏不動産流通市場の動向（2017年）: 中古マンション 2013年-2017年 / 中古戸建住宅 2013年-2017年"
+    },
+    "2018": {
+     "value": 105.82,
+     "confidence": "high",
+     "source_url": "http://www.reins.or.jp/pdf/trend/sf/sf_2018.pdf",
+     "source_title": "東日本レインズ 首都圏不動産流通市場の動向（2018年）: 中古マンション 2014年-2018年 / 中古戸建住宅 2014年-2018年"
+    },
+    "2019": {
+     "value": 104.96,
+     "confidence": "high",
+     "source_url": "https://suumo.jp/journal/2020/02/05/170218/",
+     "source_title": "2019年の首都圏の一戸建て市場動向、平均価格が公表結果によって違うのはなぜ？（SUUMOジャーナル）"
+    },
+    "2020": {
+     "value": 105.24,
+     "confidence": "high",
+     "source_url": "https://www.reins.or.jp/pdf/trend/sf/sf_2020.pdf",
+     "source_title": "東日本レインズ 首都圏不動産流通市場の動向（2020年）: 中古マンション 2016年-2020年 / 中古戸建住宅 2016年-2020年"
+    },
+    "2021": {
+     "value": 104.25,
+     "confidence": "high",
+     "source_url": "https://www.reins.or.jp/pdf/trend/sf/sf_2021.pdf",
+     "source_title": "東日本レインズ 首都圏不動産流通市場の動向（2021年）: 中古マンション 2017年-2021年 / 中古戸建住宅 2017年-2021年"
+    },
+    "2022": {
+     "value": 104.13,
+     "confidence": "high",
+     "source_url": "https://www.reins.or.jp/pdf/trend/sf/sf_2022.pdf",
+     "source_title": "東日本レインズ 首都圏不動産流通市場の動向（2022年）: 中古マンション 2018年-2022年 / 中古戸建住宅 2018年-2022年"
+    },
+    "2023": {
+     "value": 103.96,
+     "confidence": "high",
+     "source_url": "https://www.reins.or.jp/pdf/trend/sf/sf_2023.pdf",
+     "source_title": "東日本レインズ 首都圏不動産流通市場の動向（2023年）: 中古マンション 2019年-2023年 / 中古戸建住宅 2019年-2023年"
+    },
+    "2024": {
+     "value": 103.91,
+     "confidence": "high",
+     "source_url": "https://www.stepon.co.jp/column/2025/0210/",
+     "source_title": "すみふの仲介ステップ（住友不動産ステップ）2024年 首都圏 不動産流通市場動向及び新築マンション市場動向｜不動産コラム"
+    }
+   }
+  },
+  "d_chiku": {
+   "name": "首都圏 中古戸建住宅 成約物件 平均築年数",
+   "unit": "年",
+   "publisher": "公益財団法人 東日本不動産流通機構（東日本レインズ）",
+   "points": {
+    "2009": {
+     "value": 18.13,
+     "confidence": "medium",
+     "source_url": "http://www.reins.or.jp/pdf/trend/rt/rt_201003.pdf",
+     "source_title": "東日本レインズ REINS TOPIC: 2009年1～12月における中古マンションおよび戸建住宅の成約・新規登録状況を築年数から見てみました"
+    },
+    "2014": {
+     "value": 20.48,
+     "confidence": "medium",
+     "source_url": "http://www.reins.or.jp/pdf/trend/sf/sf_2018.pdf",
+     "source_title": "東日本レインズ 首都圏不動産流通市場の動向（2018年）: 中古マンション 2014年-2018年 / 中古戸建住宅 2014年-2018年"
+    },
+    "2015": {
+     "value": 20.6,
+     "confidence": "low",
+     "source_url": "https://www.reins.or.jp/pdf/trend/sf/sf_2016.pdf",
+     "source_title": "東日本レインズ 首都圏不動産流通市場の動向（2016年）: 中古マンション 2012年-2016年 / 中古戸建住宅 2012年-2016年"
+    },
+    "2016": {
+     "value": 20.81,
+     "confidence": "medium",
+     "source_url": "https://www.reins.or.jp/pdf/trend/sf/sf_2017.pdf",
+     "source_title": "東日本レインズ 首都圏不動産流通市場の動向（2017年）: 中古マンション 2013年-2017年 / 中古戸建住宅 2013年-2017年"
+    },
+    "2017": {
+     "value": 20.99,
+     "confidence": "high",
+     "source_url": "https://www.reins.or.jp/pdf/trend/sf/sf_2017.pdf",
+     "source_title": "東日本レインズ 首都圏不動産流通市場の動向（2017年）: 中古マンション 2013年-2017年 / 中古戸建住宅 2013年-2017年"
+    },
+    "2018": {
+     "value": 21.11,
+     "confidence": "medium",
+     "source_url": "https://www.reins.or.jp/pdf/trend/sf/sf_2019.pdf",
+     "source_title": "東日本レインズ 首都圏不動産流通市場の動向（2019年）: 中古マンション 2015年-2019年 / 中古戸建住宅 2015年-2019年"
+    },
+    "2019": {
+     "value": 21.38,
+     "confidence": "high",
+     "source_url": "https://www.reins.or.jp/pdf/trend/sf/sf_2019.pdf",
+     "source_title": "東日本レインズ 首都圏不動産流通市場の動向（2019年）: 中古マンション 2015年-2019年 / 中古戸建住宅 2015年-2019年"
+    },
+    "2020": {
+     "value": 21.62,
+     "confidence": "high",
+     "source_url": "https://www.reins.or.jp/pdf/trend/sf/sf_2020.pdf",
+     "source_title": "東日本レインズ 首都圏不動産流通市場の動向（2020年）: 中古マンション 2016年-2020年 / 中古戸建住宅 2016年-2020年"
+    },
+    "2021": {
+     "value": 21.2,
+     "confidence": "high",
+     "source_url": "https://www.reins.or.jp/pdf/trend/sf/sf_2021.pdf",
+     "source_title": "東日本レインズ 首都圏不動産流通市場の動向（2021年）: 中古マンション 2017年-2021年 / 中古戸建住宅 2017年-2021年"
+    },
+    "2022": {
+     "value": 21.31,
+     "confidence": "high",
+     "source_url": "https://www.reins.or.jp/pdf/trend/sf/sf_2022.pdf",
+     "source_title": "東日本レインズ 首都圏不動産流通市場の動向（2022年）: 中古マンション 2018年-2022年 / 中古戸建住宅 2018年-2022年"
+    },
+    "2023": {
+     "value": 21.82,
+     "confidence": "high",
+     "source_url": "https://www.reins.or.jp/pdf/trend/sf/sf_2023.pdf",
+     "source_title": "東日本レインズ 首都圏不動産流通市場の動向（2023年）: 中古マンション 2019年-2023年 / 中古戸建住宅 2019年-2023年"
+    },
+    "2024": {
+     "value": 22.22,
+     "confidence": "high",
+     "source_url": "https://www.stepon.co.jp/column/2025/0210/",
+     "source_title": "すみふの仲介ステップ（住友不動産ステップ）2024年 首都圏 不動産流通市場動向及び新築マンション市場動向｜不動産コラム"
+    }
+   }
+  }
+ }
+}
