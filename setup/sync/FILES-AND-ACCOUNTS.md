@@ -50,12 +50,35 @@ C:\Users\<あなた>\
 
 ---
 
-## 2. OneDrive の設定
+## 2. ファイルの同期先を決める
+
+**OneDrive は必須ではありません。** Microsoft アカウントを持っていない場合、
+新しく作らずに Google 側へ寄せる方が、管理するアカウントが増えません。
+
+| | Google に寄せる | OneDrive を使う |
+|---|---|---|
+| 必要なアカウント | **Google のみ**（Chrome 同期と共用） | Microsoft アカウントを追加 |
+| 横断メモ | **Google スプレッドシート**（アプリ不要） | Excel ファイル + 同期アプリ |
+| 資料・写真 | Google ドライブ | OneDrive |
+| Windows との統合 | ブラウザ中心 | エクスプローラーに統合される |
+
+**物件探しで一番使うのは横断メモ**です。これを Google スプレッドシートにすると
+**同期アプリを入れる必要すらありません。** ブラウザで開くだけで2台から同じものが見えます。
+
+### Google に寄せる場合
+
+1. 横断メモ → https://sheets.google.com で新規作成（[../property/PROPERTY-SEARCH.md](../property/PROPERTY-SEARCH.md) の項目を参照）
+2. 資料・写真 → https://drive.google.com にフォルダを作る
+3. 必要なら「パソコン版 Google ドライブ」を入れてエクスプローラーから使う
+
+Chrome 同期と同じアカウントにしておけば、ログインは一度で済みます。
+
+### OneDrive を使う場合
 
 Windows に最初から入っています。Microsoft アカウントでログインすれば使えます。
 
 > **Windows のサインインがローカルアカウントでも使えます。**
-> OneDrive アプリ側に Microsoft アカウントでサインインすれば同期は動きます。
+> OneDrive アプリ側にサインインすれば同期は動き、
 > Windows のサインイン方法を変える必要はありません。
 > （BitLocker の回復キーだけは Microsoft アカウントに預けられないため、
 >   自分で保管します → [../new-pc/THINKPAD-X1-YOGA.md](../new-pc/THINKPAD-X1-YOGA.md)）
@@ -94,8 +117,8 @@ OneDrive 設定 → アカウント → フォルダーの選択
 
 | アカウント | 同期されるもの | 設定場所 |
 |---|---|---|
-| **Microsoft** | Windows の設定の一部、OneDrive のファイル | 設定 → アカウント |
-| **Google** | Chrome のブックマーク・履歴・**開いているタブ**・パスワード | Chrome → プロフィール → 同期を有効にする |
+| **Google** | Chrome のブックマーク・履歴・**開いているタブ**・パスワード、Google ドライブ／スプレッドシート | Chrome → プロフィール → 同期を有効にする |
+| **Microsoft**（任意） | Windows の設定の一部、OneDrive のファイル | 設定 → アカウント |
 | **GitHub** | コード（リポジトリ）、VS Code の個人設定（Settings Sync） | VS Code 左下の歯車 → Backup and Sync Settings |
 | **Anthropic** | Claude の会話履歴 | Claude デスクトップでログイン |
 
@@ -151,7 +174,7 @@ OneDrive 設定 → アカウント → フォルダーの選択
 ## チェックリスト
 
 - [ ] `dev\` フォルダが **OneDrive の外**にある
-- [ ] OneDrive にログインし、「ファイル オンデマンド」が有効
+- [ ] ファイルの同期先を決めた（Google ドライブ / OneDrive のどちらか）
 - [ ] 物件フォルダを作り、両方のPCから開けることを確認した
 - [ ] Chrome が 現PC・新PC の2台で同じ Google アカウント
 - [ ] Chrome の同期項目に「開いているタブ」が入っている
